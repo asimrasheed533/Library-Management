@@ -1,0 +1,554 @@
+.google__signIn__button {
+  padding: 12px;
+  border: 1px solid #3030306b;
+  border-radius: 30px;
+  padding: 0.9em 2em;
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: background-color 0.2s;
+  margin-top: 3em;
+  transition: 300ms ease-in-out;
+
+  &:hover {
+    background-color: #c0c0c036;
+    transition: 300ms ease-in-out;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.divider {
+  margin: 20px 0;
+  text-align: center;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: #ddd;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  span {
+    background-color: white;
+    padding: 0 10px;
+    color: #666;
+    font-size: 14px;
+  }
+}
+.create__container {
+  display: flex;
+  height: 100vh;
+  border-radius: 16px;
+}
+
+.create__container__img {
+  flex: 1;
+  width: 50%;
+}
+
+.create__container__img__image {
+  width: 100%;
+  display: flex;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.create__container__from__warper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  scale: 0.9;
+  background-color: var(--lightBlue);
+  border-radius: 12px;
+}
+
+.create__container__from__heading {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 0.3em;
+  color: var(--white);
+}
+
+.create__container__from__sub__heading {
+  color: #aaaaaa;
+  font-size: 14px;
+  margin-bottom: 1em;
+  transition: 300ms ease-in-out;
+}
+
+.create__container__link {
+  color: var(--white);
+  cursor: pointer;
+  margin-left: 0.4em;
+  transition: 300ms ease-in-out;
+}
+
+.create__container__from__sub__heading span:hover {
+  text-decoration: underline;
+  font-weight: 600;
+  transition: 300ms ease-in-out;
+}
+
+.error__input {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  font-weight: bold;
+  left: 0;
+  bottom: -7px;
+}
+
+.create__account__input {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  margin-top: 2em;
+}
+
+.create__account__input_svg {
+  position: absolute;
+  left: 10px;
+  top: -5px;
+}
+
+.create__account__input__label {
+  font-size: 14px;
+  color: #aaaaaa;
+  position: absolute;
+  left: 3em;
+  bottom: 32px;
+  pointer-events: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+.input__row__login {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1em;
+  max-width: 480px;
+  margin-top: 1em;
+}
+.create__account__input__entry {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1.4em;
+  border: none;
+  border-bottom: 1px solid #aaaaaa;
+  background-color: transparent;
+  outline: none;
+  color: white;
+  font-weight: 500;
+  padding-left: 3em;
+  padding-bottom: 0.5em;
+  font-size: 0.9rem;
+  background-color: transparent;
+}
+
+.create__account__input__entry:focus ~ .create__account__input__label,
+.create__account__input__entry:valid ~ .create__account__input__label {
+  bottom: 35px;
+  color: rgb(167, 165, 165);
+  transform: translateY(-12px);
+}
+
+.forgot__password {
+  color: #ff9300;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+  padding-top: 3em;
+}
+
+.forgot__password:hover {
+  text-decoration: underline;
+  transition: 300ms ease-in-out;
+}
+
+.submit__btn {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.forgot__submit__btn {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+}
+
+.submit__btn__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--orange);
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+}
+
+.submit__btn__back__title:hover {
+  transition: 300ms ease-in-out;
+}
+
+.submit__btn__back__title {
+  margin-left: 0.5em;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.create__account__button {
+  width: 140px;
+  height: 55px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+  background-color: #007893;
+  border-radius: 10px;
+  padding: 1em;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  transition: 300ms ease-in-out;
+}
+
+.create__account__button:hover {
+  background-color: #00657d;
+  transition: 300ms ease-in-out;
+}
+
+.forgot__account__button {
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007893;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  padding: 0.8em 2em;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  transition: 300ms ease-in-out;
+  text-decoration: none;
+  height: 50px;
+  width: 100%;
+}
+
+.forgot__account__button:disabled {
+  background-color: #aaaaaa;
+}
+
+.forgot__account__button:hover {
+  background-color: #00657d;
+  transition: 300ms ease-in-out;
+}
+
+.track__order__button {
+  // width: 140px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+  background-color: #ff9300;
+  border-radius: 8px;
+  padding: 1em;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  transition: 300ms ease-in-out;
+}
+
+.track__order__button:hover {
+  background-color: #030200;
+  transition: 300ms ease-in-out;
+}
+
+.track__order__button__text {
+  text-decoration: none;
+  color: white;
+}
+
+.customer__say__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  // padding: 0 2em;
+  max-width: 1366px;
+  margin: 0 auto;
+}
+
+.customer__say__heading {
+  font-size: 30px;
+  font-weight: 900;
+  margin-top: 2em;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--orange) !important;
+}
+
+.customer__say__card__warper {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 2em 3em;
+}
+
+.customer__say__card__col {
+  min-width: 310px;
+  min-height: 220px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-radius: 30px;
+  padding: 2em 1.5em;
+  background: white;
+  margin: 1em;
+  box-shadow: rgba(0, 0, 0, 0.089) 0 5px 15px;
+}
+
+.customer__say__card__col__svg {
+  margin-bottom: 1em;
+}
+
+.customer__say__card__col__star {
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.customer__say__card__col__heading {
+  margin-top: 1em;
+  font-weight: 600;
+}
+
+.customer__say__card__col__text {
+  margin-top: 0.5em;
+  font-size: 14px;
+}
+
+.customer__say__card__col__left {
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: -1;
+  flex-wrap: wrap;
+}
+
+.customer__say__card__col__right {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-left: 3px solid #aaaaaa;
+  padding: 1em 2em;
+  margin: 1em;
+}
+
+.customer__say__col__right__heading {
+  font-weight: 900;
+  margin-bottom: 1em;
+}
+
+.customer__right__img__warper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.customer__right__image {
+  width: 165px;
+  object-fit: contain;
+  padding: 0.5em 0;
+}
+
+.signin__submit__btn {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  margin-top: 1em;
+  justify-content: flex-end;
+}
+
+.google__login__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  width: fit-content;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.google__login__wrapper:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 1250px) {
+  .customer__say__card__col__left {
+    width: 75%;
+  }
+
+  .customer__say__card__col {
+    max-width: 360px;
+  }
+
+  .create__container__from__warper {
+    padding: 2.5em;
+  }
+
+  .customer__say__card__warper {
+    flex-direction: column;
+  }
+
+  .customer__say__card__col__right {
+    border: none;
+  }
+
+  .customer__right__img__warper {
+    flex-direction: row;
+    gap: 1.5em;
+  }
+
+  .customer__say__card__warper {
+    padding: 0;
+  }
+}
+
+@media (max-width: 950px) {
+  .customer__say__card__col__left {
+    width: 100%;
+  }
+
+  .create__container__from__warper {
+    padding: 1.5em;
+    margin-top: 2em;
+  }
+}
+
+@media (max-width: 850px) {
+  .create__container {
+    flex-direction: column;
+  }
+
+  .forgot__submit__btn {
+    max-width: 100%;
+  }
+
+  .signin__submit__btn {
+    max-width: 100%;
+  }
+
+  .create__container__img {
+    display: none;
+  }
+
+  .create__container__from__warper {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .create__account__input {
+    max-width: 100%;
+  }
+
+  .submit__btn {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .create__container__from__heading {
+    font-size: 20px;
+  }
+
+  .create__account__input__label {
+    font-size: 12px;
+  }
+
+  .customer__say__card__col {
+    width: 100%;
+    max-width: 90%;
+  }
+
+  .customer__say__heading {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .customer__right__img__warper {
+    flex-direction: column;
+  }
+
+  .customer__say__container {
+    padding: 2em 2em;
+  }
+
+  .customer__say__card__warper {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .create__container__from__warper {
+    max-width: 100%;
+  }
+
+  .create__container__from__sub__heading {
+    font-size: 12px;
+  }
+}

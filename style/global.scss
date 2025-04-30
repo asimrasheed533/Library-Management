@@ -1,0 +1,43 @@
+:root {
+  --white: #ffffff;
+  --whiteShadow: #fcfcfc60;
+  --blue: #212b36;
+  --lightBlue: #1d2935;
+  --lightHover: #26323e69;
+  --golden: #f2a734;
+  --shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  background-color: var(--white);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--lightBlue) inset !important;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+}
+.cursor {
+  width: 15px;
+  height: 15px;
+  background-color: rgba(224, 108, 108, 0.534);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
