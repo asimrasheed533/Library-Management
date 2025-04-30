@@ -34,10 +34,16 @@ export default function SignIn() {
         <div className="input__row__login">
           <Input label="Password" type="password" name="password" />
         </div>
-
-        <Link href="/forgot" className="forgot__password">
-          Forgot Password?
-        </Link>
+        <div
+          className="signin__submit__btn"
+          style={{
+            marginBottom: "20px",
+          }}
+        >
+          <button type="submit" className="forgot__account__button">
+            LogIn
+          </button>
+        </div>
       </form>
     </div>
   );

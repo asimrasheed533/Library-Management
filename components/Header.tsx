@@ -6,6 +6,8 @@ import "@/style/header.scss";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import logoLib from "@/public/logoLib.png";
 
 export default function Header({ token }: { token: string | null }) {
   const router = useRouter();
@@ -47,14 +49,6 @@ export default function Header({ token }: { token: string | null }) {
               </Link>
               {token && (
                 <>
-                  {/* <Link
-                    href="/order"
-                    className={`nav__entry__item ${
-                      pathname === "/order" ? "active" : ""
-                    }`}
-                  >
-                    Order Now
-                  </Link> */}
                   <Link
                     href="/menu"
                     className={`nav__entry__item ${
@@ -115,14 +109,13 @@ export default function Header({ token }: { token: string | null }) {
             </svg>
           </button>
           <button onClick={() => router.push("/")} className="nav__log">
-            {/* <Image
+            <Image
               width={100}
               height={100}
               className="nav__log__image"
-              src={menuLogo}
+              src={logoLib}
               alt="logo"
-            /> */}
-            Logo
+            />
           </button>
           <div className="nav__register">
             {token ? (
