@@ -5,10 +5,10 @@ import DashboardHeader from "./DashboardHeader";
 import DashboardSidebar from "./DashboardSidebar";
 import { IDashboardLayout } from "@/interfaces";
 
-export default function DashboardLayout({ children, links }: IDashboardLayout) {
+export default function DashboardLayout({ children }: IDashboardLayout) {
   return (
     <div className="dashboard">
-      <DashboardSidebar links={links} />
+      <DashboardSidebar />
       <div className="dashboard__main">
         <DashboardHeader />
         <div className="dashboard__main__content">

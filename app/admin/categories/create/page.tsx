@@ -20,7 +20,9 @@ export default function AddCategories() {
             <button
               type="submit"
               className="listing__page__header__actions__button"
-            ></button>
+            >
+              Save
+            </button>
           </div>
         </form>
       </div>

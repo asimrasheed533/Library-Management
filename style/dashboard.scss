@@ -145,8 +145,6 @@
   align-items: flex-start;
   justify-content: center;
   border-radius: 16px;
-  margin-top: 1em;
-  // background-color: var(--blueLight);
 }
 .sidebar__nav__warper__header.active {
   background-color: var(--blueLight);
@@ -225,7 +223,7 @@
   background-color: var(--blueLight);
 }
 .sidebar__category__btn__name {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 .product__container {
   display: flex;

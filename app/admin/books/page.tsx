@@ -1,30 +1,24 @@
 "use client";
 import headerItems from "@/data/headerItems.json";
-import { products as data } from "@/constant/mocks";
-import { useState } from "react";
+import { Books as data } from "@/constant/mocks";
 import Link from "next/link";
 import ListingTabs from "@/components/ListingTabs";
 import ListingTable from "@/components/ListingTable";
-import ListingCheckbox from "@/components/ListingCheckbox";
 import { usePathname } from "next/navigation";
 
 export default function Products() {
   const pathname = usePathname();
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [page, setPage] = useState(3);
   return (
     <div className="listing__page">
       <div className="listing__page__header">
         <ListingTabs
-          selectedTab="Products"
+          selectedTab="Books"
           setSelectedTab={() => {}}
-          tabs={[{ name: "Products", number: data.length }]}
+          tabs={[{ name: "Books", number: data.length }]}
         />
         <div className="listing__page__header__actions">
-          {/* <SearchInput value={search} onChange={setSearch} /> */}
-
           <Link
-            href={pathname + "/create"}
+            href={pathname + "/add"}
             className="listing__page__header__actions__button"
           >
             <svg
@@ -39,44 +33,22 @@ export default function Products() {
                 fill="currentColor"
               />
             </svg>
-            Add Products
+            Add Book
           </Link>
         </div>
       </div>
-      <ListingTable
-        data={[]}
-        headerItems={headerItems.Products}
-        selectedRows={selectedRows}
-        // setSelectedRows={setSelectedRows}
-        // page={page}
-        // setPage={setPage}
-        totalPages={10}
-      >
+      <ListingTable data={[]} headerItems={headerItems.Book}>
         {data.map((item) => (
           <Link
             className="listing__page__table__content__row"
             href={pathname + "/" + item.id}
             key={item.id}
           >
-            <div className="listing__page__table__content__row__entry checkbox">
-              <ListingCheckbox
-                partiallyChecked={false}
-                checked={false}
-                onClick={() => {}}
-              />
-            </div>
-
             <div className="listing__page__table__content__row__entry">
               {item.name}
             </div>
             <div className="listing__page__table__content__row__entry">
-              {item.price}
-            </div>
-            <div className="listing__page__table__content__row__entry">
-              {item.quantity}
-            </div>
-            <div className="listing__page__table__content__row__entry">
-              {item.status}
+              {item.name}
             </div>
           </Link>
         ))}

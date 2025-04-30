@@ -1,13 +1,14 @@
 "use client";
 import useSidebar from "@/hooks/useSidebar";
-import { ILinks } from "@/interfaces";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
-import MoonLoader from "react-spinners/MoonLoader";
-export default function DashboardSidebar({ links }: { links: ILinks[] }) {
+import logoLib from "@/public/logoLib.png";
+import Image from "next/image";
+import GeneralIcon from "@/icons/GeneralIcon";
+export default function DashboardSidebar() {
   const [isCollapsed, setIsCollapsed] = useSidebar();
   const pathname = usePathname();
 
@@ -47,13 +48,12 @@ export default function DashboardSidebar({ links }: { links: ILinks[] }) {
         >
           <div className="dashboard__sidebar__header">
             <Link href="/admin" className="dashboard__sidebar__header__logo">
-              <img
+              <Image
                 className="dashboard__sidebar__header__logo__img"
-                loading="lazy"
-                src="https://res.cloudinary.com/dsxbqyjwo/image/upload/v1733401133/menuLogo_gftkyz.png"
+                src={logoLib}
                 alt="Logo"
                 width={109}
-                height={25}
+                height={30}
               />
             </Link>
             <button
@@ -76,13 +76,27 @@ export default function DashboardSidebar({ links }: { links: ILinks[] }) {
             </button>
           </div>
           <div className="container__sidebar__content">
-            {links?.length > 0 ? (
-              links.map((link) => (
-                <SideBarEntry key={link.label} entryLink={link} />
-              ))
-            ) : (
-              <p>No links available</p>
-            )}
+            <SideBarEntry
+              entryLink={{
+                href: "/admin",
+                label: "Dashboard",
+                icon: <GeneralIcon />,
+              }}
+            />
+            <SideBarEntry
+              entryLink={{
+                href: "/admin/books",
+                label: "Books",
+                icon: <GeneralIcon />,
+              }}
+            />
+            <SideBarEntry
+              entryLink={{
+                href: "/admin/categories",
+                label: "Categories",
+                icon: <GeneralIcon />,
+              }}
+            />
           </div>
         </motion.div>
       </ClickAwayListener>
@@ -91,53 +105,14 @@ export default function DashboardSidebar({ links }: { links: ILinks[] }) {
 }
 
 function SideBarEntry({ entryLink }: { entryLink: any }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const [isLoading, startTransition] = useTransition();
-
   return (
     <>
       <div className="sidebar__nav__warper__header">
-        <Link
-          href={entryLink.href}
-          onClick={() => setIsOpen(!isOpen)}
-          className={`sidebar__category__btn ${isOpen ? "active" : ""}`}
-        >
+        <Link href={entryLink.href} className="sidebar__category__btn">
           <div className="sidebar__category__btn__icon">{entryLink.icon}</div>
           <div className="sidebar__category__btn__name">{entryLink.label}</div>
         </Link>
       </div>
-      {isOpen && (
-        <div className="sidebar__nav__warper">
-          {entryLink?.children?.map((subEntry: any) => (
-            <button
-              key={subEntry.name}
-              onClick={() => {
-                startTransition(() => {
-                  router.push(subEntry.href);
-                });
-              }}
-              className={`sidebar__nav__entry ${
-                pathname.startsWith(subEntry.href) ? "active" : ""
-              }`}
-            >
-              {subEntry.icon && (
-                <span className="sidebar__nav__icon">
-                  {isLoading ? (
-                    <MoonLoader size={15} color="#fff" />
-                  ) : (
-                    subEntry.icon
-                  )}
-                </span>
-              )}
-
-              <span className="sidebar__nav__text">{subEntry.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
     </>
   );
 }

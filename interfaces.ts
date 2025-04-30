@@ -13,9 +13,6 @@ export interface IListingTable {
   style?: Object;
   children: ReactNode;
   actions?: IListingAction[];
-  selectedRows?: string[];
-  setSelectedRows?: (value: string[]) => void;
-  totalPages?: number;
   sortData?: {
     key: string;
     order: "asc" | "desc";
@@ -70,7 +67,6 @@ export interface ISelect {
 }
 export interface IDashboardLayout {
   children: ReactNode;
-  links: ILinks[];
 }
 export interface ILinks {
   label: string;
