@@ -96,6 +96,60 @@
 .tag:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+.book__card__warper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1366px;
+  margin: 0 auto;
+  padding: 2em;
+}
+.book__card__warper___title__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+.book__card__container {
+  display: flex;
+  flex: 0 1 300px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.6em;
+  padding: 0.5em;
+  border-radius: 12px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.book__card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+.book__card__author {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #666;
+}
+.book__card__download__button {
+  background-color: #a78bfa;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.book__card__download__button:hover {
+  background-color: #8b5cf6;
+  transition: background-color 0.3s;
+}
+.book__card__download__button svg {
+  width: 16px;
+  height: 16px;
+}
 @media (max-width: 700px) {
   .home__page__text__title {
     font-size: 1.6rem;

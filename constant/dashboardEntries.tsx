@@ -32,7 +32,7 @@ export default [
   },
   {
     category: "My Account",
-    name: "Order History",
+    name: " History",
     path: "/dashboard/orderHistory",
     icon: (
       <svg
