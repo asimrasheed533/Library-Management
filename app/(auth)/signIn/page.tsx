@@ -27,9 +27,18 @@ export default function SignIn() {
         toast.error(res.data.error);
         return;
       }
-      toast.success("Logged in successfully");
 
-      router.replace("/");
+      const { role } = res.data;
+
+      console.log("res.data", res.data);
+
+      if (role === "ADMIN") {
+        toast.success("Welcome Admin!");
+        router.replace("/admin");
+      } else {
+        toast.success("Logged in successfully");
+        router.replace("/");
+      }
     } catch (e) {
       toast.error("An error occurred. Please try again later.");
     }

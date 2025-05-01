@@ -14,7 +14,7 @@ export async function POST(req) {
     }
     const exist = await prisma.user.findUnique({
       where: { email },
-      select: { password: true, id: true },
+      select: { password: true, id: true, role: true },
     });
 
     if (!exist) {
@@ -34,7 +34,10 @@ export async function POST(req) {
       path: "/",
     });
 
-    return NextResponse.json({ message: "Login successful" }, { status: 200 });
+    return NextResponse.json(
+      { message: "Login successful", role: exist.role },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error occurred:", error);
     return NextResponse.json({ message: "Internal Error" }, { status: 500 });
