@@ -76,52 +76,26 @@ export default function Home() {
   );
 }
 
-function BookCard({}) {
+function BookCard({
+  title,
+  author,
+  image,
+}: {
+  title: string;
+  author: string;
+  image: string;
+}) {
   return (
     <div className="book__card__container">
       <Image
         className="book__card__image"
-        src="https://res.cloudinary.com/dsxbqyjwo/image/upload/v1746016072/2575_vjen3c.jpg"
-        alt="Book 1"
+        src={image}
+        alt={title}
         width={400}
         height={300}
       />
-      <div className="book__card__name">Pride and Prejudice</div>
-      <div className="book__card__author">Jane Austen</div>
-      <div className="book__card__download__button">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="feather feather-download"
-        >
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-function undefined({}) {
-  return (
-    <div className="book__card__container">
-      <Image
-        className="book__card__image"
-        src="https://res.cloudinary.com/dsxbqyjwo/image/upload/v1746016072/2575_vjen3c.jpg"
-        alt="Book 1"
-        width={400}
-        height={300}
-      />
-      <div className="book__card__name">Pride and Prejudice</div>
-      <div className="book__card__author">Jane Austen</div>
+      <div className="book__card__name">{title}</div>
+      <div className="book__card__author">{author}</div>
       <div className="book__card__download__button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
