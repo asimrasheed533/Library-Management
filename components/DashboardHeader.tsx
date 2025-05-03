@@ -1,12 +1,17 @@
 "use client";
 import { useBackLocation } from "@/hooks/useBackLocation";
 import useSidebar from "@/hooks/useSidebar";
+import axios from "axios";
+import "@/style/header.scss";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import MoonLoader from "react-spinners/MoonLoader";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ token }: { token: string | null }) {
   const pathname = usePathname();
   const backLocation = useBackLocation();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useSidebar();
   const formattedTitle =
@@ -72,6 +77,53 @@ export default function DashboardHeader() {
         <div className="dashboard__main__header__title__text">
           {formattedTitle}
         </div>
+      </div>
+      <div className="nav__register">
+        {token ? (
+          <>
+            <div className="nav__register__btns">
+              <button
+                onClick={async () => {
+                  try {
+                    setLoading(true);
+                    await axios("/api/logout", { method: "POST" });
+                    router.push("/");
+                  } catch (err) {
+                    console.error("Logout failed:", err);
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+                className="nav__register__button"
+              >
+                {loading ? (
+                  <MoonLoader color="white" loading={true} size={20} />
+                ) : (
+                  "Logout"
+                )}
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={async () => {
+                try {
+                  setLoading(true);
+                  router.push("/signIn");
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              className="nav__register__button"
+            >
+              {loading ? (
+                <MoonLoader color="white" loading={loading} size={20} />
+              ) : null}
+              Login
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

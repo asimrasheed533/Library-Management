@@ -29,7 +29,8 @@ export async function POST(req) {
       );
     }
 
-    cookies().set("token", exist.id, {
+    const cookieStore = await cookies();
+    cookieStore.set("token", exist.id, {
       maxAge: 60 * 60 * 24 * 365,
       path: "/",
     });

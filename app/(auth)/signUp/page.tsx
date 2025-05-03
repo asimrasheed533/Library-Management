@@ -4,22 +4,21 @@ import Link from "next/link";
 import loginImg from "@/public/loginImg.png";
 import Image from "next/image";
 import Input from "@/components/Input";
-import { FormEvent, useState, useTransition } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import MoonLoader from "react-spinners/MoonLoader";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [processing] = useTransition();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleChange = (e: any) => {
     setFormData((prev) => ({
@@ -30,15 +29,14 @@ export default function SignUp() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
 
     const { name, email, password, confirmPassword } = formData;
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
       return;
     }
+
+    setLoading(true);
 
     try {
       const res = await axios.post("/api/register", {
@@ -46,11 +44,13 @@ export default function SignUp() {
         email,
         password,
       });
-      setSuccess(res.data.message);
+
       router.replace("/signIn");
       setFormData({ name: "", email: "", password: "", confirmPassword: "" });
     } catch (err) {
-      setError((err as any).response?.data?.message || "Something went wrong.");
+      toast.error("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,27 +75,6 @@ export default function SignUp() {
             </Link>
           </span>
         </div>
-
-        {error && (
-          <div
-            style={{
-              color: "#ff000090",
-            }}
-            className="error-message"
-          >
-            {error}
-          </div>
-        )}
-        {success && (
-          <div
-            style={{
-              color: "#008000",
-            }}
-            className="success-message"
-          >
-            {success}
-          </div>
-        )}
 
         <div className="input__row__login">
           <Input
@@ -134,12 +113,12 @@ export default function SignUp() {
           />
         </div>
         <div className="signin__submit__btn" style={{ marginBottom: "20px" }}>
-          <button
-            type="submit"
-            className="forgot__account__button"
-            disabled={processing}
-          >
-            Create Account
+          <button type="submit" className="forgot__account__button">
+            {loading ? (
+              <MoonLoader color="white" loading={true} size={20} />
+            ) : (
+              "Create Account"
+            )}
           </button>
         </div>
       </form>

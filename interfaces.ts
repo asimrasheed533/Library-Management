@@ -65,9 +65,7 @@ export interface ISelect {
   isMulti?: boolean;
   disabled?: boolean;
 }
-export interface IDashboardLayout {
-  children: ReactNode;
-}
+
 export interface ILinks {
   label: string;
   children: {

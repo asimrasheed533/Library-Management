@@ -8,8 +8,11 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import logoLib from "@/public/logoLib.png";
+import axios from "axios";
+import MoonLoader from "react-spinners/MoonLoader";
 
 export default function Header({ token }: { token: string | null }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -122,19 +125,43 @@ export default function Header({ token }: { token: string | null }) {
               <>
                 <div className="nav__register__btns">
                   <button
-                    onClick={() => router.push("/dashboard")}
+                    onClick={async () => {
+                      try {
+                        setLoading(true);
+                        await axios("/api/logout", { method: "POST" });
+                        router.refresh();
+                      } catch (err) {
+                        console.error("Logout failed:", err);
+                      } finally {
+                        setLoading(false);
+                      }
+                    }}
                     className="nav__register__button"
                   >
-                    Logout
+                    {loading ? (
+                      <MoonLoader color="white" loading={true} size={20} />
+                    ) : (
+                      "Logout"
+                    )}
                   </button>
                 </div>
               </>
             ) : (
               <>
                 <button
-                  onClick={() => router.push("/signIn")}
+                  onClick={async () => {
+                    try {
+                      setLoading(true);
+                      router.push("/signIn");
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
                   className="nav__register__button"
                 >
+                  {loading ? (
+                    <MoonLoader color="white" loading={loading} size={20} />
+                  ) : null}
                   Login
                 </button>
               </>

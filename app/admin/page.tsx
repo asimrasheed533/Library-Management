@@ -13,46 +13,64 @@ import {
 
 const data = [
   {
-    name: "Page A",
+    name: "Jun",
     uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    pv: 400,
   },
   {
-    name: "Page B",
+    name: "Feb",
     uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    pv: 398,
   },
   {
-    name: "Page C",
+    name: "Mar",
     uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    pv: 200,
   },
   {
-    name: "Page D",
+    name: "Apr",
     uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    pv: 908,
   },
   {
-    name: "Page E",
+    name: "May",
     uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    pv: 700,
   },
   {
-    name: "Page F",
+    name: "June",
     uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    pv: 800,
   },
   {
-    name: "Page G",
+    name: "July",
     uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    pv: 100,
+  },
+  {
+    name: "Aug",
+    uv: 3490,
+    pv: 600,
+  },
+  {
+    name: "Sep",
+    uv: 3490,
+    pv: 100,
+  },
+  {
+    name: "Oct",
+    uv: 3490,
+    pv: 700,
+  },
+  {
+    name: "Nov",
+    uv: 3490,
+    pv: 300,
+  },
+  {
+    name: "Dec",
+    uv: 3490,
+    pv: 400,
   },
 ];
 

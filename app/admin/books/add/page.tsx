@@ -2,9 +2,7 @@
 import "@/style/dashboard.scss";
 
 import Input from "@/components/Input";
-import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
-import PictureInput from "@/components/PictureInput";
 
 export default function ProductAdd() {
   return (

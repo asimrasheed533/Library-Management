@@ -8,8 +8,10 @@ import Input from "@/components/Input";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useState } from "react";
+import MoonLoader from "react-spinners/MoonLoader";
 
 export default function SignIn() {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +20,7 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const res = await axios.post("/api/login", {
         email,
         password,
@@ -41,6 +44,8 @@ export default function SignIn() {
       }
     } catch (e) {
       toast.error("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,7 +93,11 @@ export default function SignIn() {
           }}
         >
           <button type="submit" className="forgot__account__button">
-            LogIn
+            {loading ? (
+              <MoonLoader color="white" loading={true} size={20} />
+            ) : (
+              "LogIn"
+            )}
           </button>
         </div>
       </form>
