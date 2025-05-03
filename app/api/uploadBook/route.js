@@ -1,36 +1,58 @@
-import { writeFile } from "fs/promises";
+import fs from "fs";
 import path from "path";
-import prisma from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import multer from "multer";
+import { PrismaClient } from "@prisma/client";
 
-export async function POST(req) {
-  const formData = await req.formData();
-  const file = formData.get("file");
-  const title = formData.get("title");
-  const name = formData.get("name");
-  const description = formData.get("description");
+const prisma = new PrismaClient();
 
-  if (!file || typeof file === "string") {
-    return NextResponse.json({ message: "No file uploaded" }, { status: 400 });
-  }
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  const filename = Date.now() + path.extname(file.name);
-  const uploadDir = path.join(process.cwd(), "public/uploads");
+const upload = multer({ storage });
 
-  await writeFile(`${uploadDir}/${filename}`, buffer);
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
-  const pdfPath = `/uploads/${filename}`;
+const uploadHandler = async (req, res) => {
+  upload.single("pdf")(req, res, async (err) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ error: "File upload failed", message: err.message });
+    }
 
-  try {
-    const book = await prisma.book.create({
-      data: { title, name, description, pdfPath },
-    });
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
 
-    return NextResponse.json(book, { status: 201 });
-  } catch (error) {
-    console.error("Error uploading book:", error);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
-  }
-}
+    const { title, name, description, userId } = req.body;
+
+    try {
+      const book = await prisma.book.create({
+        data: {
+          title,
+          name,
+          description,
+          pdfPath: `/uploads/${req.file.filename}`,
+          userId,
+        },
+      });
+
+      res.status(200).json({ message: "File uploaded successfully", book });
+    } catch (error) {
+      console.error("Error storing file path:", error);
+      res.status(500).json({ error: "Database error" });
+    }
+  });
+};
+
+export default uploadHandler;
