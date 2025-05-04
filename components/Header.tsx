@@ -50,18 +50,26 @@ export default function Header({ token }: { token: string | null }) {
               >
                 Home
               </Link>
-              {token && (
+              <Link
+                href="/about"
+                className={`nav__entry__item ${
+                  pathname === "/about" ? "active" : ""
+                }`}
+              >
+                About
+              </Link>
+              {/* {token && (
                 <>
                   <Link
-                    href="/menu"
+                    href="/about"
                     className={`nav__entry__item ${
                       pathname === "/reviews" ? "active" : ""
                     }`}
                   >
-                    Library
+                    About
                   </Link>
                 </>
-              )}
+              )} */}
               <Link
                 href="/contact"
                 className={`nav__entry__item ${
