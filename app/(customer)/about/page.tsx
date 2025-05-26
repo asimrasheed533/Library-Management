@@ -21,7 +21,19 @@ export default function About() {
   );
 }
 
-export function AboutCard({ image, heading, content1, content2, reverse }) {
+function AboutCard({
+  image,
+  heading,
+  content1,
+  content2,
+  reverse,
+}: {
+  image: string;
+  heading: string;
+  content1: string;
+  content2: string;
+  reverse?: boolean;
+}) {
   return (
     <div
       className={`about__card__container ${
