@@ -31,8 +31,6 @@ export default function BookAdd() {
       return;
     }
 
-    console.log("data", e);
-
     const formData = new FormData();
     formData.append("pdf", image);
     formData.append("title", bookName);
@@ -47,26 +45,28 @@ export default function BookAdd() {
     }
 
     try {
-      // const response = await axios.post("/api/upload", formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
+      const response = await axios.post("/api/uploadBook", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("Form data submitted successfully:", formData);
 
-      // if (response.status === 200) {
-      //   console.log("Book uploaded successfully:", response.data);
-      //   setBookName("");
-      //   setAuthorName("");
-      //   setDescription("");
-      //   setImage(null);
-      // } else {
-      //   console.error("Error uploading book:", response.data);
-      //   alert("Failed to upload book. Try again.");
-      // }
+      if (response.status === 200) {
+        console.log("Book uploaded successfully:", response.data);
+      } else {
+        console.error("Error uploading book:", response.data);
+        alert("Failed to upload book. Try again.");
+      }
     } catch (error) {
       console.error("Error:", error);
       alert("Something went wrong.");
+    } finally {
+      setBookName("");
+      setAuthorName("");
+      setDescription("");
+      setImage(null);
+      setCategory({ value: "", label: "Select Category" });
     }
   };
 
@@ -103,6 +103,7 @@ export default function BookAdd() {
             className="input__row"
           >
             <Select
+              placeholder="Select Category"
               label="Category"
               options={genreOptions}
               value={category}
