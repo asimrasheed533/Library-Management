@@ -1,0 +1,14 @@
+[
+  { "value": "mystery", "label": "Mystery" },
+  { "value": "science-fiction", "label": "Science fiction" },
+  { "value": "fantasy", "label": "Fantasy" },
+  { "value": "horror", "label": "Horror" },
+  { "value": "historical-fiction", "label": "Historical Fiction" },
+  { "value": "thriller", "label": "Thriller" },
+  { "value": "autobiography", "label": "Autobiography" },
+  { "value": "literary-fiction", "label": "Literary fiction" },
+  { "value": "biography", "label": "Biography" },
+  { "value": "fiction", "label": "Fiction" },
+  { "value": "magical-realism", "label": "Magical Realism" },
+  { "value": "short-story", "label": "Short story" }
+]

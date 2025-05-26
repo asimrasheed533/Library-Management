@@ -72,6 +72,7 @@ const Select = ({
       <ReactSelect
         placeholder={placeholder}
         options={options}
+        name={label.toLocaleLowerCase()}
         value={value}
         onChange={onChange}
         isMulti={isMulti}

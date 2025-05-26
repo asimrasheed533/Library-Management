@@ -90,13 +90,6 @@ export default function DashboardSidebar() {
                 icon: <GeneralIcon />,
               }}
             />
-            <SideBarEntry
-              entryLink={{
-                href: "/admin/categories",
-                label: "Categories",
-                icon: <GeneralIcon />,
-              }}
-            />
           </div>
         </motion.div>
       </ClickAwayListener>
