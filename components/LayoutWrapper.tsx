@@ -15,7 +15,7 @@ interface LayoutProps {
 export default function LayoutWrapper({ children, token }: LayoutProps) {
   const pathname = usePathname() || "";
   const shouldShowHeaderFooter = !ROUTES_NO_HEADER_FOOTER.some((route) =>
-    pathname.startsWith(route)
+    pathname.startsWith(route),
   );
 
   return (

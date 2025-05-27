@@ -16,7 +16,7 @@ export default function ListingTabs({
           key={tab.name}
           className={clsx(
             "listing__page__header__tabs__tab",
-            selectedTab === tab.name.toLowerCase() && "active"
+            selectedTab === tab.name.toLowerCase() && "active",
           )}
           onClick={() => setSelectedTab(tab.name.toLowerCase())}
         >

@@ -23,18 +23,18 @@ export default function InputFile({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChangeMultiple = (
-    e: ChangeEvent<HTMLInputElement> | DragEvent<HTMLInputElement>
+    e: ChangeEvent<HTMLInputElement> | DragEvent<HTMLInputElement>,
   ) => {
     const files = Array.from((e.target as HTMLInputElement).files || []);
 
     const newFiles = Array.from(files);
     const existingFiles = (Array.isArray(value) ? value : [value]).filter(
-      (file): file is File => file !== null
+      (file): file is File => file !== null,
     );
     const updatedFiles = [
       ...existingFiles,
       ...newFiles.filter(
-        (newFile) => !existingFiles.some((file) => file.name === newFile.name)
+        (newFile) => !existingFiles.some((file) => file.name === newFile.name),
       ),
     ];
     onChange(updatedFiles);
@@ -45,7 +45,7 @@ export default function InputFile({
   };
 
   const handleFileChangeSingle = (
-    e: ChangeEvent<HTMLInputElement> | DragEvent<HTMLInputElement>
+    e: ChangeEvent<HTMLInputElement> | DragEvent<HTMLInputElement>,
   ) => {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (file) {
@@ -59,7 +59,7 @@ export default function InputFile({
   const removeFile = (fileName: string) => {
     const updatedFiles = (Array.isArray(value) ? value : [value]).filter(
       (file) =>
-        file instanceof File ? file.name !== fileName : file !== fileName
+        file instanceof File ? file.name !== fileName : file !== fileName,
     );
     onChange(updatedFiles.filter((file): file is File => file !== null));
   };
@@ -200,10 +200,10 @@ export default function InputFile({
               {value instanceof File
                 ? value.name
                 : Array.isArray(value)
-                ? value
-                    .map((file) => (file instanceof File ? file.name : file))
-                    .join(", ")
-                : value}
+                  ? value
+                      .map((file) => (file instanceof File ? file.name : file))
+                      .join(", ")
+                  : value}
             </span>
           </div>
         ) : (

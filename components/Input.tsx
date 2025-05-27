@@ -27,8 +27,8 @@ export default function Input({
             type === "password" && isSecure
               ? "password"
               : type === "password"
-              ? "text"
-              : type
+                ? "text"
+                : type
           }
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}

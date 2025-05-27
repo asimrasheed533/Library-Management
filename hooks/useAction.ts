@@ -24,7 +24,7 @@ export default function useAction<TArgs = any, TData = any>({
 }: UseActionParams<TArgs, TData>): [
   boolean,
   (args?: TArgs) => Promise<TData>,
-  () => void
+  () => void,
 ] {
   const pathname = usePathname();
   const router = useRouter();
@@ -65,7 +65,7 @@ export default function useAction<TArgs = any, TData = any>({
       router,
       pathname,
       onSuccess,
-    ]
+    ],
   );
 
   const handleError = useCallback(
@@ -76,7 +76,7 @@ export default function useAction<TArgs = any, TData = any>({
       onError?.(error);
       logError?.(error);
     },
-    [errorMessage, errorToastOptions, onError, logError]
+    [errorMessage, errorToastOptions, onError, logError],
   );
 
   const actionCallback = useCallback(
@@ -89,7 +89,7 @@ export default function useAction<TArgs = any, TData = any>({
         try {
           if (needsConfirmation) {
             const confirmed = confirm(
-              "Are you sure you want to perform this action?"
+              "Are you sure you want to perform this action?",
             );
             if (!confirmed) {
               setProcessing(false);
@@ -99,7 +99,7 @@ export default function useAction<TArgs = any, TData = any>({
 
           const result = await promise(
             args as TArgs,
-            abortControllerRef.current?.signal
+            abortControllerRef.current?.signal,
           );
           const data = result?.data;
 
@@ -123,7 +123,7 @@ export default function useAction<TArgs = any, TData = any>({
 
       return executeRequest();
     },
-    [promise, retryCount, needsConfirmation, handleSuccess, handleError]
+    [promise, retryCount, needsConfirmation, handleSuccess, handleError],
   );
 
   useEffect(() => cancelRequest, [cancelRequest]);

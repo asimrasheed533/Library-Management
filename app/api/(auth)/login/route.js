@@ -25,7 +25,7 @@ export async function POST(req) {
     if (!isPasswordCorrect) {
       return NextResponse.json(
         { message: "Incorrect password" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -37,7 +37,7 @@ export async function POST(req) {
 
     return NextResponse.json(
       { message: "Login successful", role: exist.role },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error occurred:", error);

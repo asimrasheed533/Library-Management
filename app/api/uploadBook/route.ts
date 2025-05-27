@@ -2,6 +2,7 @@ import { writeFile, mkdir } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
 import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
@@ -13,9 +14,7 @@ export async function POST(req: Request) {
   const description = formData.get("description") as string;
 
   if (!file || !file.name) {
-    return new Response(JSON.stringify({ error: "No file uploaded" }), {
-      status: 400,
-    });
+    return NextResponse.json({ error: "File is required" }, { status: 400 });
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -39,14 +38,15 @@ export async function POST(req: Request) {
       },
     });
 
-    return new Response(
-      JSON.stringify({ message: "Upload successful", book }),
-      { status: 200 }
+    return NextResponse.json(
+      { message: "File uploaded successfully", book },
+      { status: 200 },
     );
   } catch (err: any) {
-    console.error("Upload error:", err);
-    return new Response(JSON.stringify({ error: "Upload failed" }), {
-      status: 500,
-    });
+    console.error("Error while creating a book", err);
+    return NextResponse.json(
+      { error: "Failed to upload file" },
+      { status: 500 },
+    );
   }
 }

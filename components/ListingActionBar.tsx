@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export default function ListingActionBar({
   selectedItems,
-  children
+  children,
 }: {
   selectedItems: number;
   children: ReactNode;
