@@ -41,7 +41,7 @@ export default function Books() {
         <ListingTabs
           selectedTab="Books"
           setSelectedTab={() => {}}
-          tabs={[{ name: "Books", number: 1 }]}
+          tabs={[{ name: "Books", number: data?.length || 0 }]}
         />
         <div className="listing__page__header__actions">
           <Link
@@ -66,11 +66,7 @@ export default function Books() {
       </div>
       <ListingTable data={[]} headerItems={headerItems}>
         {data?.map((item) => (
-          <Link
-            className="listing__page__table__content__row"
-            href={pathname + "/" + item.id}
-            key={item.id}
-          >
+          <div className="listing__page__table__content__row" key={item.id}>
             <div className="listing__page__table__content__row__entry">
               {item.name}
             </div>
@@ -87,7 +83,7 @@ export default function Books() {
             <div className="listing__page__table__content__row__entry">
               {dayjs(item.createdAt).format("DD/MM/YYYY")}
             </div>
-          </Link>
+          </div>
         ))}
       </ListingTable>
     </div>

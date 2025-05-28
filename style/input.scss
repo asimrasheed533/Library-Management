@@ -273,12 +273,6 @@
   z-index: 2;
   cursor: pointer;
 }
-// .container__main__content__details__main__input {
-//   width: 100%;
-//   display: flex;
-//   position: relative;
-//   flex-direction: column;
-// }
 .container__main__content__details__main__input__error {
   color: #ff3333;
   position: absolute;
@@ -297,6 +291,7 @@
   border: 1px solid var(--whiteShadow);
   resize: none;
   height: 200px;
+  color: white;
 }
 .container__main__content__details__main__input {
   width: 100%;
