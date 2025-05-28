@@ -1,4 +1,5 @@
 "use client";
+
 import "@/style/dashboard.scss";
 
 import Input from "@/components/Input";
@@ -8,12 +9,16 @@ import { useState } from "react";
 import axios from "axios";
 import Select from "@/components/Select";
 import genreOptions from "@/data/genre.json";
+import { useRouter } from "next/navigation";
+import InputFile from "@/components/InputFile";
 
 export default function BookAdd() {
+  const router = useRouter();
   const [bookName, setBookName] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const [pdf, setPdf] = useState(null);
   const [category, setCategory] = useState({
     value: "",
     label: "Select Category",
@@ -32,20 +37,24 @@ export default function BookAdd() {
     }
 
     const formData = new FormData();
-    formData.append("pdf", image);
+    if (pdf) {
+      formData.append("pdf", pdf);
+    }
+    formData.append("image", image);
+    formData.append("author", authorName);
     formData.append("title", bookName);
     formData.append("name", bookName);
     formData.append("category", category.value);
     formData.append("description", description);
 
     // Log FormData contents properly
-    console.log("FormData contents:");
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+    // console.log("FormData contents:");
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
 
     try {
-      const response = await axios.post("/api/uploadBook", formData, {
+      const response = await axios.post("/api/books/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -53,7 +62,8 @@ export default function BookAdd() {
       console.log("Form data submitted successfully:", formData);
 
       if (response.status === 200) {
-        console.log("Book uploaded successfully:", response.data);
+        alert("Book uploaded successfully!");
+        router.push("/admin/books");
       } else {
         console.error("Error uploading book:", response.data);
         alert("Failed to upload book. Try again.");
@@ -65,6 +75,7 @@ export default function BookAdd() {
       setBookName("");
       setAuthorName("");
       setDescription("");
+      setPdf(null);
       setImage(null);
       setCategory({ value: "", label: "Select Category" });
     }
@@ -74,7 +85,12 @@ export default function BookAdd() {
     <>
       <div className="product__container">
         <form onSubmit={handleSubmit}>
-          <PictureInput label="Book Image" onChange={handleImageChange} />
+          <PictureInput
+            label="Book Image"
+            onChange={handleImageChange}
+            value={image}
+          />
+          <InputFile label="Book Pdf" onChange={setPdf} value={pdf} />
           <div
             style={{
               marginTop: "12px",

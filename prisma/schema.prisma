@@ -27,6 +27,9 @@ model Book {
   title       String
   name        String
   description String
-  pdfPath     String?
+  pdfPath     String
+  imagePath   String
+  author      String
+  category    String
   createdAt   DateTime @default(now())
 }

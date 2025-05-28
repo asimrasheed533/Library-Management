@@ -1,9 +1,6 @@
 import "@/style/listing.scss";
 import ListingHeaderEntry from "./ListingHeaderEntry";
-import ListingCheckbox from "./ListingCheckbox";
-import ListingPagination from "./ListingPagination";
 import { IListingTable } from "@/interfaces";
-import ListingActionBar from "./ListingActionBar";
 
 export default function ListingTable({
   style,

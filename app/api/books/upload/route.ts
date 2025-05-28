@@ -1,0 +1,63 @@
+import { writeFile, mkdir } from "fs/promises";
+import { existsSync } from "fs";
+import path from "path";
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+
+export async function POST(req: Request) {
+  async function uploadFile(file: File, uploadDir: string): Promise<string> {
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const filename = `${Date.now()}-${file.name}`;
+    const filePath = path.join(uploadDir, filename);
+
+    if (!existsSync(uploadDir)) {
+      await mkdir(uploadDir, { recursive: true });
+    }
+
+    await writeFile(filePath, buffer);
+    return filename;
+  }
+
+  try {
+    const formData = await req.formData();
+    const pdf = formData.get("pdf") as File;
+    const image = formData.get("image") as File;
+    const title = formData.get("title") as string;
+    const name = formData.get("name") as string;
+    const author = formData.get("author") as string;
+    const description = formData.get("description") as string;
+    const category = formData.get("author") as string;
+
+    if (!pdf || !pdf.name || !image || !image.name) {
+      return NextResponse.json({ error: "File is required" }, { status: 400 });
+    }
+
+    const uploadDir = path.join(process.cwd(), "public", "uploads");
+
+    const pdfFilename = await uploadFile(pdf, uploadDir);
+    const imageFilename = await uploadFile(image, uploadDir);
+
+    const book = await prisma.book.create({
+      data: {
+        title,
+        name,
+        author,
+        description,
+        category,
+        pdfPath: `/uploads/${pdfFilename}`,
+        imagePath: `/uploads/${imageFilename}`,
+      },
+    });
+
+    return NextResponse.json(
+      { message: "File uploaded successfully", book },
+      { status: 200 }
+    );
+  } catch (err: any) {
+    console.error("Error while creating a book", err);
+    return NextResponse.json(
+      { error: "Failed to upload file" },
+      { status: 500 }
+    );
+  }
+}

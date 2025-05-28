@@ -1,12 +1,39 @@
 "use client";
-import headerItems from "@/data/headerItems.json";
-import { Books as data } from "@/constant/mocks";
+
 import Link from "next/link";
 import ListingTabs from "@/components/ListingTabs";
 import ListingTable from "@/components/ListingTable";
 import { usePathname } from "next/navigation";
+import useQuery from "@/hooks/useQuery";
+import dayjs from "dayjs";
 
-export default function Products() {
+const headerItems = [
+  {
+    key: "name",
+    name: "Book Name",
+  },
+  { key: "picture", name: "Picture" },
+  { key: "pdf", name: "PDF" },
+  { key: "author", name: "Author Name" },
+  { key: "createdAt", name: "Created At" },
+];
+
+interface Book {
+  author: string;
+  category: string;
+  createdAt: string;
+  description: string;
+  id: string;
+  imagePath: string;
+  name: string;
+  pdfPath: string;
+  title: string;
+}
+
+export default function Books() {
+  const { data, isLoading } = useQuery<Book[]>("/api/books");
+
+  console.log("books", data);
   const pathname = usePathname();
   return (
     <div className="listing__page">
@@ -14,7 +41,7 @@ export default function Products() {
         <ListingTabs
           selectedTab="Books"
           setSelectedTab={() => {}}
-          tabs={[{ name: "Books", number: data.length }]}
+          tabs={[{ name: "Books", number: 1 }]}
         />
         <div className="listing__page__header__actions">
           <Link
@@ -37,8 +64,8 @@ export default function Products() {
           </Link>
         </div>
       </div>
-      <ListingTable data={[]} headerItems={headerItems.Book}>
-        {data.map((item) => (
+      <ListingTable data={[]} headerItems={headerItems}>
+        {data?.map((item) => (
           <Link
             className="listing__page__table__content__row"
             href={pathname + "/" + item.id}
@@ -48,7 +75,17 @@ export default function Products() {
               {item.name}
             </div>
             <div className="listing__page__table__content__row__entry">
-              {item.name}
+              <img
+                className="listing__page__table__content__row__entry__img"
+                src={item.imagePath}
+                alt={item.author}
+              />
+            </div>
+            <div className="listing__page__table__content__row__entry">
+              {item.author}
+            </div>
+            <div className="listing__page__table__content__row__entry">
+              {dayjs(item.createdAt).format("DD/MM/YYYY")}
             </div>
           </Link>
         ))}
