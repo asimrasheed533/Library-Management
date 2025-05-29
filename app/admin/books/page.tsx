@@ -6,6 +6,8 @@ import ListingTable from "@/components/ListingTable";
 import { usePathname } from "next/navigation";
 import useQuery from "@/hooks/useQuery";
 import dayjs from "dayjs";
+import { SyncLoader } from "react-spinners";
+import { Book } from "@/constant/types";
 
 const headerItems = [
   {
@@ -18,31 +20,13 @@ const headerItems = [
   { key: "createdAt", name: "Created At" },
 ];
 
-interface Book {
-  author: string;
-  category: string;
-  createdAt: string;
-  description: string;
-  id: string;
-  imagePath: string;
-  name: string;
-  pdfPath: string;
-  title: string;
-}
-
 export default function Books() {
   const { data, isLoading } = useQuery<Book[]>("/api/books");
 
-  console.log("books", data);
   const pathname = usePathname();
   return (
     <div className="listing__page">
       <div className="listing__page__header">
-        <ListingTabs
-          selectedTab="Books"
-          setSelectedTab={() => {}}
-          tabs={[{ name: "Books", number: data?.length || 0 }]}
-        />
         <div className="listing__page__header__actions">
           <Link
             href={pathname + "/add"}
@@ -65,26 +49,68 @@ export default function Books() {
         </div>
       </div>
       <ListingTable data={[]} headerItems={headerItems}>
-        {data?.map((item) => (
-          <div className="listing__page__table__content__row" key={item.id}>
-            <div className="listing__page__table__content__row__entry">
-              {item.name}
-            </div>
-            <div className="listing__page__table__content__row__entry">
-              <img
-                className="listing__page__table__content__row__entry__img"
-                src={item.imagePath}
-                alt={item.author}
-              />
-            </div>
-            <div className="listing__page__table__content__row__entry">
-              {item.author}
-            </div>
-            <div className="listing__page__table__content__row__entry">
-              {dayjs(item.createdAt).format("DD/MM/YYYY")}
-            </div>
+        {isLoading ? (
+          <div className="listing__page__table__loading">
+            <SyncLoader color="#FFD700" />
           </div>
-        ))}
+        ) : data?.length === 0 ? (
+          <div className="listing__page__table__loading">
+            <p>No books found.</p>
+          </div>
+        ) : (
+          data?.map((item) => (
+            <Link
+              href={`/admin/books/edit?id=${item.id}`}
+              className="listing__page__table__content__row"
+              key={item.id}
+            >
+              <div className="listing__page__table__content__row__entry">
+                {item.name}
+              </div>
+              <div className="listing__page__table__content__row__entry">
+                <img
+                  className="listing__page__table__content__row__entry__img"
+                  src={item.imagePath}
+                  alt={item.author}
+                />
+              </div>
+              <div className="listing__page__table__content__row__entry">
+                <a
+                  href={item.pdfPath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="listing__page__table__content__row__entry__pdf"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-file-text-icon lucide-file-text"
+                  >
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                    <path d="M10 9H8" />
+                    <path d="M16 13H8" />
+                    <path d="M16 17H8" />
+                  </svg>
+                  Download PDF
+                </a>
+              </div>
+              <div className="listing__page__table__content__row__entry">
+                {item.author}
+              </div>
+              <div className="listing__page__table__content__row__entry">
+                {dayjs(item.createdAt).format("DD/MM/YYYY")}
+              </div>
+            </Link>
+          ))
+        )}
       </ListingTable>
     </div>
   );

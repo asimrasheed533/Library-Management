@@ -11,6 +11,7 @@ import Select from "@/components/Select";
 import genreOptions from "@/data/genre.json";
 import { useRouter } from "next/navigation";
 import InputFile from "@/components/InputFile";
+import { SyncLoader } from "react-spinners";
 
 export default function BookAdd() {
   const router = useRouter();
@@ -23,6 +24,8 @@ export default function BookAdd() {
     value: "",
     label: "Select Category",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (file: any) => {
     setImage(file);
@@ -54,12 +57,12 @@ export default function BookAdd() {
     // }
 
     try {
+      setLoading(true);
       const response = await axios.post("/api/books/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("Form data submitted successfully:", formData);
 
       if (response.status === 200) {
         alert("Book uploaded successfully!");
@@ -78,6 +81,7 @@ export default function BookAdd() {
       setPdf(null);
       setImage(null);
       setCategory({ value: "", label: "Select Category" });
+      setLoading(false);
     }
   };
 
@@ -85,12 +89,20 @@ export default function BookAdd() {
     <>
       <div className="product__container">
         <form onSubmit={handleSubmit}>
-          <PictureInput
-            label="Book Image"
-            onChange={handleImageChange}
-            value={image}
-          />
-          <InputFile label="Book Pdf" onChange={setPdf} value={pdf} />
+          <div
+            style={{
+              marginTop: "12px",
+            }}
+            className="input__row"
+          >
+            <PictureInput
+              label="Book Image"
+              onChange={handleImageChange}
+              value={image}
+            />
+            <InputFile label="Book Pdf" onChange={setPdf} value={pdf} />
+          </div>
+
           <div
             style={{
               marginTop: "12px",
@@ -144,8 +156,9 @@ export default function BookAdd() {
             <button
               type="submit"
               className="listing__page__header__actions__button"
+              disabled={loading}
             >
-              Save
+              {loading ? <SyncLoader color="white" size={8} /> : "Save"}
             </button>
           </div>
         </form>

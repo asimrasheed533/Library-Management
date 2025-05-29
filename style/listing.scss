@@ -233,16 +233,17 @@
   padding: 0 0.5em;
 }
 .listing__page__table__content__row__entry__img {
-  font-size: 0.85em;
-  color: var(--white);
-  width: 60px;
-  height: 50px;
-  display: flex;
-  align-items: center;
+  height: 60px;
+  width: 40px;
+  border-radius: 5px;
   object-fit: cover;
+}
+.listing__page__table__content__row__entry__pdf {
+  font-size: 0.85em;
+  display: flex;
   gap: 0.5em;
-  padding: 0 0.5em;
-  border-radius: 120px;
+  align-items: center;
+  color: var(--white);
 }
 .listing__page__table__content__row {
   display: flex;
@@ -308,4 +309,16 @@
 .listing__page__pagination__button.active {
   background-color: var(--golden);
   color: var(--white);
+}
+.listing__page__table__loading {
+  position: absolute;
+  color: var(--white);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
 }
