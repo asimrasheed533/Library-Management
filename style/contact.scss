@@ -1,0 +1,61 @@
+.contact__info {
+  width: 100%;
+  max-width: 1200px;
+  margin: 4em auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+  position: relative;
+  padding: 0em 1em;
+  flex-wrap: wrap;
+}
+.contact__info__card {
+  padding: 2.5em;
+  border: 1px solid rgba(0, 0, 0, 0.438);
+  width: 30%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 1em;
+  border-radius: 20px;
+  transition: 300ms ease-in-out;
+  padding-bottom: 2em;
+  background-color: white;
+}
+.contact__info__card__heading {
+  margin: 0.5em 0em;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 1em;
+}
+.contact__info__card__info {
+  min-height: 30px;
+  word-break: break-all;
+}
+.contact__info__card:hover {
+  transition: 300ms ease-in-out;
+  background-color: rgba(26, 25, 25, 0.575);
+  border-color: black;
+}
+.contact__info__card:hover * {
+  color: white;
+}
+.contact__map__wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0em 2em;
+}
+.contact__map {
+  width: 100%;
+  max-width: 1366px;
+  border: none;
+  margin: 0em auto;
+  margin-top: -10em;
+  border-radius: 20px;
+  height: 800px;
+  margin-bottom: 4em;
+}
