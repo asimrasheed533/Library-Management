@@ -8,6 +8,8 @@ import useQuery from "@/hooks/useQuery";
 import dayjs from "dayjs";
 import { SyncLoader } from "react-spinners";
 import { Book } from "@/constant/types";
+import { useState } from "react";
+import { createPortal } from "react-dom";
 
 const headerItems = [
   {
@@ -18,6 +20,7 @@ const headerItems = [
   { key: "pdf", name: "PDF" },
   { key: "author", name: "Author Name" },
   { key: "createdAt", name: "Created At" },
+  { key: "action", name: "Action" },
 ];
 
 export default function Books() {
@@ -58,60 +61,237 @@ export default function Books() {
             <p>No books found.</p>
           </div>
         ) : (
-          data?.map((item) => (
-            <Link
-              href={`/admin/books/edit?id=${item.id}`}
-              className="listing__page__table__content__row"
-              key={item.id}
-            >
-              <div className="listing__page__table__content__row__entry">
-                {item.name}
-              </div>
-              <div className="listing__page__table__content__row__entry">
-                <img
-                  className="listing__page__table__content__row__entry__img"
-                  src={item.imagePath}
-                  alt={item.author}
-                />
-              </div>
-              <div className="listing__page__table__content__row__entry">
-                <a
-                  href={item.pdfPath}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="listing__page__table__content__row__entry__pdf"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-file-text-icon lucide-file-text"
-                  >
-                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-                    <path d="M10 9H8" />
-                    <path d="M16 13H8" />
-                    <path d="M16 17H8" />
-                  </svg>
-                  Download PDF
-                </a>
-              </div>
-              <div className="listing__page__table__content__row__entry">
-                {item.author}
-              </div>
-              <div className="listing__page__table__content__row__entry">
-                {dayjs(item.createdAt).format("DD/MM/YYYY")}
-              </div>
-            </Link>
-          ))
+          data?.map((item) => <BookEntry key={item.id} item={item} />)
         )}
       </ListingTable>
     </div>
+  );
+}
+
+interface DeleteModalProps {
+  isOpen: boolean;
+  bookName: string;
+  onClose: () => void;
+  onDelete: () => void;
+  isDeleting?: boolean;
+}
+
+function DeleteModal({
+  isOpen,
+  bookName,
+  onClose,
+  onDelete,
+  isDeleting = false,
+}: DeleteModalProps) {
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000,
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "white",
+          borderRadius: "8px",
+          padding: "24px",
+          width: "400px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+        }}
+      >
+        <h2
+          style={{
+            margin: 0,
+            fontSize: "20px",
+            fontWeight: 600,
+            color: "#333",
+          }}
+        >
+          Delete Confirmation
+        </h2>
+        <p style={{ margin: 0, color: "#555" }}>
+          Are you sure you want to delete <strong>"{bookName}"</strong>? This
+          action cannot be undone.
+        </p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: "12px",
+            marginTop: "8px",
+          }}
+        >
+          <button
+            onClick={onClose}
+            disabled={isDeleting}
+            style={{
+              padding: "8px 16px",
+              border: "1px solid #ddd",
+              borderRadius: "4px",
+              backgroundColor: "#f5f5f5",
+              cursor: isDeleting ? "not-allowed" : "pointer",
+              color: "#333",
+              fontWeight: 500,
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onDelete}
+            disabled={isDeleting}
+            style={{
+              padding: "8px 16px",
+              border: "none",
+              borderRadius: "4px",
+              backgroundColor: "#dc3545",
+              color: "white",
+              cursor: isDeleting ? "not-allowed" : "pointer",
+              fontWeight: 500,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            {isDeleting && (
+              <svg
+                style={{
+                  width: "16px",
+                  height: "16px",
+                  animation: "spin 1s linear infinite",
+                }}
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                  strokeDasharray="32"
+                  strokeDashoffset="8"
+                />
+              </svg>
+            )}
+            {isDeleting ? "Deleting..." : "Delete"}
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+function BookEntry({ item }: { item: Book }) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  return (
+    <Link
+      href={`/admin/books/edit?id=${item.id}`}
+      className="listing__page__table__content__row"
+      key={item.id}
+    >
+      <div className="listing__page__table__content__row__entry">
+        {item.name}
+      </div>
+      <div className="listing__page__table__content__row__entry">
+        <img
+          className="listing__page__table__content__row__entry__img"
+          src={item.imagePath}
+          alt={item.author}
+        />
+      </div>
+      <div className="listing__page__table__content__row__entry">
+        <a
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          href={item.pdfPath}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="listing__page__table__content__row__entry__pdf"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={24}
+            height={24}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-file-text-icon lucide-file-text"
+          >
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M10 9H8" />
+            <path d="M16 13H8" />
+            <path d="M16 17H8" />
+          </svg>
+          Download PDF
+        </a>
+      </div>
+      <div className="listing__page__table__content__row__entry">
+        {item.author}
+      </div>
+      <div className="listing__page__table__content__row__entry">
+        {dayjs(item.createdAt).format("DD/MM/YYYY hh:mm A")}
+      </div>
+      <div className="listing__page__table__content__row__entry">
+        <button
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            e.preventDefault();
+            e.stopPropagation(); // Prevent the link from being followed
+            setIsDeleteModalOpen(true);
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={24}
+            height={24}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-trash2-icon lucide-trash-2"
+          >
+            <path d="M3 6h18" />
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+            <line x1={10} x2={10} y1={11} y2={17} />
+            <line x1={14} x2={14} y1={11} y2={17} />
+          </svg>
+        </button>
+      </div>
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        bookName={item.name}
+        onClose={(e: React.MouseEvent<HTMLButtonElement>) => {
+          e.preventDefault();
+          e.stopPropagation(); // Close modal logic here
+          setIsDeleteModalOpen(false);
+        }}
+        onDelete={(e: React.MouseEvent<HTMLButtonElement>) => {
+          e.preventDefault();
+          e.stopPropagation(); // Handle deletion logic here
+        }} // Replace with function to handle deletion
+        isDeleting={false} // Replace with state to indicate if deletion is in progress
+      />
+    </Link>
   );
 }

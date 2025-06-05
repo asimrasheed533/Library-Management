@@ -1,23 +1,9 @@
-import { writeFile, mkdir } from "fs/promises";
-import { existsSync } from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { uploadFile } from "@/utils/upload-file";
 
 export async function POST(req: Request) {
-  async function uploadFile(file: File, uploadDir: string): Promise<string> {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const filename = `${Date.now()}-${file.name}`;
-    const filePath = path.join(uploadDir, filename);
-
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true });
-    }
-
-    await writeFile(filePath, buffer);
-    return filename;
-  }
-
   try {
     const formData = await req.formData();
     const pdf = formData.get("pdf") as File;
@@ -26,7 +12,7 @@ export async function POST(req: Request) {
     const name = formData.get("name") as string;
     const author = formData.get("author") as string;
     const description = formData.get("description") as string;
-    const category = formData.get("author") as string;
+    const category = formData.get("category") as string;
 
     if (!pdf || !pdf.name || !image || !image.name) {
       return NextResponse.json({ error: "File is required" }, { status: 400 });

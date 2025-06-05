@@ -5,7 +5,7 @@ import "@/style/dashboard.scss";
 import Input from "@/components/Input";
 import TextArea from "@/components/TextArea";
 import PictureInput from "@/components/PictureInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "@/components/Select";
 import genreOptions from "@/data/genre.json";
@@ -51,6 +51,7 @@ export default function EditBook() {
     if (pdf) {
       formData.append("pdf", pdf);
     }
+    formData.append("id", id || "");
     formData.append("image", image);
     formData.append("author", authorName);
     formData.append("title", bookName);
@@ -59,25 +60,24 @@ export default function EditBook() {
     formData.append("description", description);
 
     // Log FormData contents properly
-    // console.log("FormData contents:");
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
+    console.log("FormData contents:");
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/books/upload", formData, {
+      const response = await axios.put("/api/books/edit", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-
       if (response.status === 200) {
-        alert("Book uploaded successfully!");
+        alert("Book updated successfully!");
         router.push("/admin/books");
       } else {
-        console.error("Error uploading book:", response.data);
-        alert("Failed to upload book. Try again.");
+        console.error("Error updating book:", response.data);
+        alert("Failed to update book. Try again.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -92,6 +92,20 @@ export default function EditBook() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      setBookName(data.name);
+      setAuthorName(data.author);
+      setDescription(data.description);
+      setImage(data.imagePath);
+      setPdf(data.pdfPath);
+      setCategory({
+        value: data.category,
+        label: data.category,
+      });
+    }
+  }, [data]);
 
   return (
     <>
@@ -113,7 +127,12 @@ export default function EditBook() {
                 onChange={handleImageChange}
                 value={image}
               />
-              <InputFile label="Book Pdf" onChange={setPdf} value={pdf} />
+              <InputFile
+                label="Book Pdf"
+                onChange={setPdf}
+                value={pdf}
+                multiple={false}
+              />
             </div>
 
             <div

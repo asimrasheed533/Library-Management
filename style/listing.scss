@@ -252,6 +252,7 @@
   width: calc(100% - 5px);
   min-width: fit-content;
   text-decoration: none;
+  position: relative;
 }
 .listing__page__table__content__row:hover {
   background-color: var(--lightHover);
@@ -321,4 +322,22 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
+}
+.listing__page__table__content__row__action {
+  position: absolute;
+  right: 1em;
+  top: 35%;
+}
+.listing__page__table__content__row__action button {
+  background-color: var(--white);
+  border: none;
+  padding: 0.5em;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+.listing__page__table__content__row__action button:hover {
+  background-color: var(--golden);
+  color: var(--white);
 }

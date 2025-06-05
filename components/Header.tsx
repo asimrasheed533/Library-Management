@@ -1,8 +1,8 @@
 "use client";
+import "@/style/header.scss";
 
 import React, { useEffect, useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
-import "@/style/header.scss";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
