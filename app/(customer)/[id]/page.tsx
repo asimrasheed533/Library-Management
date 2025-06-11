@@ -1,7 +1,15 @@
+"use client";
 import PageBanner from "@/components/PageBanner";
+import { Book } from "@/constant/types";
+import useQuery from "@/hooks/useQuery";
 import "@/style/home.scss";
+
 import Image from "next/image";
+import { useParams } from "next/navigation";
 export default function BookDetail() {
+  const { id } = useParams();
+  const { data, isLoading } = useQuery<Book>(`/api/books/${id}`);
+
   return (
     <>
       <PageBanner title="Book Detail" />
@@ -11,7 +19,7 @@ export default function BookDetail() {
             className="bookDetail__container__left__img"
             width={300}
             height={300}
-            src="https://res.cloudinary.com/dsxbqyjwo/image/upload/v1746016072/2575_vjen3c.jpg"
+            src={"/uploads/" + data?.imagePath || "/placeholder-image.jpg"}
             alt="library"
           />
 
@@ -45,19 +53,15 @@ export default function BookDetail() {
         </div>
         <div className="bookDetail__container__right">
           <div className="bookDetail__container__right__title">
-            Pride and Prejudice
+            {data?.name}
           </div>
           <div className="bookDetail__container__right__author">
-            Jane Austen
+            {data?.author}
           </div>
           <div className="book__detail__line" />
           <div className="book__detail__about__title">About this book</div>
           <div className="book__detail__about__sub__title">
-            Pride and Prejudice follows the turbulent relationship between
-            Elizabeth Bennet, the daughter of a country gentleman, and
-            Fitzwilliam Darcy, a rich aristocratic landowner. They must overcome
-            the titular sins of pride and prejudice in order to fall in love and
-            marry.
+            {data?.description}
           </div>
         </div>
       </div>
