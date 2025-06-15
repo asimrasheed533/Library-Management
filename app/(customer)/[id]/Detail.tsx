@@ -5,6 +5,7 @@ import useQuery from "@/hooks/useQuery";
 import "@/style/home.scss";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 export default function Detail({ token }: { token: string | null }) {
   const { id } = useParams();
@@ -23,7 +24,7 @@ export default function Detail({ token }: { token: string | null }) {
             alt="library"
           />
 
-          {token && (
+          {token ? (
             <>
               <button className="bookDetail__container__left__download">
                 <svg
@@ -53,6 +54,23 @@ export default function Detail({ token }: { token: string | null }) {
                 Read Book
               </button>
             </>
+          ) : (
+            <div
+              className="bookDetail__container__left__disclaimer"
+              style={{
+                padding: "10px",
+                marginTop: "15px",
+                backgroundColor: "#f8f9fa",
+                border: "1px solid #dee2e6",
+                borderRadius: "4px",
+                color: "#6c757d",
+                textAlign: "center",
+              }}
+            >
+              <Link href="/signIn" style={{ margin: 0, color: "black" }}>
+                Sign in to Download or Read this book.
+              </Link>
+            </div>
           )}
         </div>
         <div className="bookDetail__container__right">
