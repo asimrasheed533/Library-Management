@@ -50,12 +50,6 @@ export default function BookAdd() {
     formData.append("category", category.value);
     formData.append("description", description);
 
-    // Log FormData contents properly
-    // console.log("FormData contents:");
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
-
     try {
       setLoading(true);
       const response = await axios.post("/api/books/upload", formData, {

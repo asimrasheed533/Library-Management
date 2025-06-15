@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import ListingTabs from "@/components/ListingTabs";
 import ListingTable from "@/components/ListingTable";
 import { usePathname } from "next/navigation";
 import useQuery from "@/hooks/useQuery";
 import dayjs from "dayjs";
 import { SyncLoader } from "react-spinners";
 import { Book } from "@/constant/types";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { createPortal } from "react-dom";
+import ClickAwayListener from "react-click-away-listener";
+import axios from "axios";
+import { mutate } from "swr";
 
 const headerItems = [
   {
@@ -68,135 +70,24 @@ export default function Books() {
   );
 }
 
-interface DeleteModalProps {
-  isOpen: boolean;
-  bookName: string;
-  onClose: () => void;
-  onDelete: () => void;
-  isDeleting?: boolean;
-}
-
-function DeleteModal({
-  isOpen,
-  bookName,
-  onClose,
-  onDelete,
-  isDeleting = false,
-}: DeleteModalProps) {
-  if (!isOpen) return null;
-
-  return createPortal(
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1000,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          borderRadius: "8px",
-          padding: "24px",
-          width: "400px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-        }}
-      >
-        <h2
-          style={{
-            margin: 0,
-            fontSize: "20px",
-            fontWeight: 600,
-            color: "#333",
-          }}
-        >
-          Delete Confirmation
-        </h2>
-        <p style={{ margin: 0, color: "#555" }}>
-          Are you sure you want to delete <strong>"{bookName}"</strong>? This
-          action cannot be undone.
-        </p>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "12px",
-            marginTop: "8px",
-          }}
-        >
-          <button
-            onClick={onClose}
-            disabled={isDeleting}
-            style={{
-              padding: "8px 16px",
-              border: "1px solid #ddd",
-              borderRadius: "4px",
-              backgroundColor: "#f5f5f5",
-              cursor: isDeleting ? "not-allowed" : "pointer",
-              color: "#333",
-              fontWeight: 500,
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={onDelete}
-            disabled={isDeleting}
-            style={{
-              padding: "8px 16px",
-              border: "none",
-              borderRadius: "4px",
-              backgroundColor: "#dc3545",
-              color: "white",
-              cursor: isDeleting ? "not-allowed" : "pointer",
-              fontWeight: 500,
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            {isDeleting && (
-              <svg
-                style={{
-                  width: "16px",
-                  height: "16px",
-                  animation: "spin 1s linear infinite",
-                }}
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  fill="none"
-                  strokeDasharray="32"
-                  strokeDashoffset="8"
-                />
-              </svg>
-            )}
-            {isDeleting ? "Deleting..." : "Delete"}
-          </button>
-        </div>
-      </div>
-    </div>,
-    document.body
-  );
-}
-
 function BookEntry({ item }: { item: Book }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [pending, startTransition] = useTransition();
+
+  const handleDelete = async (id: string) => {
+    try {
+      startTransition(async () => {
+        const res = await axios.delete(`/api/books/${id}`);
+        if (res.status === 200) {
+          mutate("/api/books");
+          setIsDeleteModalOpen(false);
+        }
+      });
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
+
   return (
     <Link
       href={`/admin/books/edit?id=${item.id}`}
@@ -254,7 +145,7 @@ function BookEntry({ item }: { item: Book }) {
         <button
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             e.preventDefault();
-            e.stopPropagation(); // Prevent the link from being followed
+            e.stopPropagation();
             setIsDeleteModalOpen(true);
           }}
         >
@@ -283,15 +174,125 @@ function BookEntry({ item }: { item: Book }) {
         bookName={item.name}
         onClose={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
-          e.stopPropagation(); // Close modal logic here
+          e.stopPropagation();
           setIsDeleteModalOpen(false);
         }}
         onDelete={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
-          e.stopPropagation(); // Handle deletion logic here
-        }} // Replace with function to handle deletion
-        isDeleting={false} // Replace with state to indicate if deletion is in progress
+          e.stopPropagation();
+          handleDelete(item.id);
+        }}
+        isDeleting={pending}
       />
     </Link>
+  );
+}
+
+interface DeleteModalProps {
+  isOpen: boolean;
+  bookName: string;
+  onClose: (e: any) => void;
+  onDelete: (e: any) => void;
+  isDeleting?: boolean;
+}
+
+function DeleteModal({
+  isOpen,
+  bookName,
+  onClose,
+  onDelete,
+  isDeleting = false,
+}: DeleteModalProps) {
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000,
+      }}
+    >
+      <ClickAwayListener onClickAway={onClose}>
+        <div
+          style={{
+            backgroundColor: "rgb(42, 42, 42)",
+            borderRadius: "8px",
+            padding: "24px",
+            width: "400px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            color: "white",
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontSize: "20px",
+              fontWeight: 600,
+            }}
+          >
+            Delete Confirmation
+          </h2>
+          <p style={{ margin: 0 }}>
+            Are you sure you want to delete <strong>"{bookName}"</strong>? This
+            action cannot be undone.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: "12px",
+              marginTop: "8px",
+            }}
+          >
+            <button
+              onClick={onClose}
+              disabled={isDeleting}
+              style={{
+                padding: "8px 16px",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                backgroundColor: "#f5f5f5",
+                cursor: isDeleting ? "not-allowed" : "pointer",
+                color: "#333",
+                fontWeight: 500,
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={onDelete}
+              disabled={isDeleting}
+              style={{
+                padding: "8px 16px",
+                border: "none",
+                borderRadius: "4px",
+                backgroundColor: "#dc3545",
+                color: "white",
+                cursor: isDeleting ? "not-allowed" : "pointer",
+                fontWeight: 500,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              {isDeleting && <SyncLoader color="#fff" size={8} margin={2} />}
+              {!isDeleting && "Delete"}
+            </button>
+          </div>
+        </div>
+      </ClickAwayListener>
+    </div>,
+    document.body
   );
 }
