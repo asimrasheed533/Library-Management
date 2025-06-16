@@ -23,9 +23,6 @@ const Select = ({
       fontSize: "12px",
       minHeight: "50px",
       borderRadius: "12px",
-      borderColor:
-        state.isFocused && !value ? "var(--white)" : "var(--whiteShadow)",
-      backgroundColor: "var(--lightBlue)",
     }),
     menu: (base: any) => ({
       ...base,
@@ -40,11 +37,7 @@ const Select = ({
       ...base,
       color: "var(--blue)",
     }),
-    placeholder: (base: any, state: any) => ({
-      ...base,
-      color:
-        state.isFocused || value ? "var(--whiteShadow)" : "var(--whiteShadow)",
-    }),
+
     option: (base: any) => ({
       ...base,
       fontSize: "12px",
