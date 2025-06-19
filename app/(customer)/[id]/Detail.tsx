@@ -20,7 +20,7 @@ export default function Detail({ token }: { token: string | null }) {
             className="bookDetail__container__left__img"
             width={300}
             height={300}
-            src={"/uploads/" + data?.imagePath || "/placeholder-image.jpg"}
+            src={data?.imagePath || "/placeholder-image.jpg"}
             alt="library"
           />
 

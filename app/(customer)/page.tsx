@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Home() {
   const { data, isLoading } = useQuery<Book[]>("/api/books");
+  console.log("data", data);
 
   return (
     <>
@@ -183,7 +184,7 @@ function BookCard({
     <Link href={id} className="book__card__container">
       <Image
         className="book__card__image"
-        src={"/uploads/" + image}
+        src={image}
         alt={title}
         width={400}
         height={300}

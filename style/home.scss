@@ -173,7 +173,7 @@
 .book__card__image {
   height: 210px;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 12px;
 }
 .book__card__name {
