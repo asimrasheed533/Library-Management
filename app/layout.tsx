@@ -2,6 +2,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "@/style/global.scss";
 import { ToastContainer } from "react-toastify";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import PDFWorkerInitializer from "@/components/PDFWorkerInitializer";
 const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 const APP_NAME = "Library";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={plus_jakarta_sans.className}>
+        <PDFWorkerInitializer />
         {children}
         <ToastContainer position="bottom-right" theme="dark" autoClose={1500} />
       </body>
