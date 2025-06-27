@@ -66,19 +66,18 @@ export default function Home() {
       <div className="learn__container">
         <div className="learn__container__text__warper">
           <div className="learn__container__text__heading">
-            What will you learn?
+            Book Overview
           </div>
           <div className="learn__container__text__subheading">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod
-            corporis iusto reprehenderit earum perspiciatis at tempora
-            distinctio voluptatum deserunt ad natus adipisci delectus pariatur,
-            facere porro quae laudantium quisquam dolorem optio totam vitae
-            saepe, deleniti perferendis! Ducimus eum laudantium alias
-            voluptates, possimus nam inventore ea voluptas dignissimos facilis
-            aperiam earum.quae laudantium quisquam dolorem optio totam vitae
-            saepe, deleniti perferendis! Ducimus eum laudantium alias
-            voluptates, possimus nam inventore ea voluptas dignissimos facilis
-            aperiam earum.
+           "An inspiring story that explores deep human emotions and relationships, making it a timeless read for all ages."
+
+"A comprehensive guide filled with practical insights, perfect for students and professionals alike."
+
+"A gripping novel that combines mystery, drama, and unexpected twists to keep readers engaged until the last page."
+
+"An essential reference book that covers the fundamentals of the subject with clear explanations and examples."
+  
+
           </div>
         </div>
         <div className="learn__points__warper">
@@ -86,12 +85,31 @@ export default function Home() {
             <div className="learn__points__entry__number">1</div>
             <div className="learn__points__entry__text">
               <div className="learn__points__entry__text__title">
-                This typical journey into product management
+                Foundations of the Product Manager Role
               </div>
               <div className="learn__points__entry__text__subtitle">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-                blanditiis id ducimus, recusandae ea soluta. adipisicing elit.
-                Esse blanditiis id ducimus, recusandae ea soluta.
+                  Understand what a product manager does, how they contribute to a team,
+                   and the skills required to succeed in the role.
+        
+              </div>
+
+            
+
+
+                 
+            </div>
+          </div>
+          <div className="learn__points__entry">
+            <div className="learn__points__entry__number">1</div>
+            <div className="learn__points__entry__text">
+              <div className="learn__points__entry__text__title">
+                User-Centered Thinking and Research
+              </div>
+              <div className="learn__points__entry__text__subtitle">
+                Gain insights into how to conduct user research, gather feedback, 
+                and design products that solve real customer problems.
+                
+                
               </div>
             </div>
           </div>
@@ -99,12 +117,13 @@ export default function Home() {
             <div className="learn__points__entry__number">1</div>
             <div className="learn__points__entry__text">
               <div className="learn__points__entry__text__title">
-                This typical journey into product management
+                Navigating Career Growth in Product Management
               </div>
               <div className="learn__points__entry__text__subtitle">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-                blanditiis id ducimus, recusandae ea soluta. adipisicing elit.
-                Esse blanditiis id ducimus, recusandae ea soluta.
+                Explore real-world career paths, common challenges, and strategies 
+                for growing from entry-level PM roles to leadership positions.
+                
+                
               </div>
             </div>
           </div>
@@ -112,25 +131,13 @@ export default function Home() {
             <div className="learn__points__entry__number">1</div>
             <div className="learn__points__entry__text">
               <div className="learn__points__entry__text__title">
-                This typical journey into product management
+                How to Build and Deliver Great Products
               </div>
               <div className="learn__points__entry__text__subtitle">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-                blanditiis id ducimus, recusandae ea soluta. adipisicing elit.
-                Esse blanditiis id ducimus, recusandae ea soluta.
-              </div>
-            </div>
-          </div>
-          <div className="learn__points__entry">
-            <div className="learn__points__entry__number">1</div>
-            <div className="learn__points__entry__text">
-              <div className="learn__points__entry__text__title">
-                This typical journey into product management
-              </div>
-              <div className="learn__points__entry__text__subtitle">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-                blanditiis id ducimus, recusandae ea soluta. adipisicing elit.
-                Esse blanditiis id ducimus, recusandae ea soluta.
+                Learn how to define product vision, prioritize features, 
+                work with cross-functional teams, and manage product lifecycles
+      
+                
               </div>
             </div>
           </div>
@@ -143,19 +150,13 @@ export default function Home() {
             How to Product Chapter BreakDown
           </div>
           <div className="breakdown__subtitle">
-            Short discription about each chapter, Have any question? Contact me
+            Short description about each chapter, Have any question? Contact me
           </div>
         </div>
         <div className="breakdown__detail__warper">
           <div className="breakdown__detail__text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Necessitatibus, consequatur alias animi obcaecati, dolorem expedita
-            placeat quis quisquam maxime optio sint, quidem exercitationem.
-            Neque, dignissimos. Placeat ratione esse vel tempora amet quasi,
-            omnis qui ab debitis eos obcaecati saepe. Cupiditate dolor ipsum
-            nemo odio sint officia ipsam neque voluptas, harum voluptatem,
-            distinctio esse voluptatum excepturi nam suscipit vel incidunt
-            quasi!
+           A practical and insightful guide that traces the real-world path into product management, covering key skills, challenges, 
+           and strategies needed to succeed in the role. Ideal for aspiring product managers and professionals looking to transition into the field.
           </div>
           <div className="breakdown__detail__image">
             <img
