@@ -6,9 +6,8 @@
   { "value": "historical-fiction", "label": "Historical Fiction" },
   { "value": "thriller", "label": "Thriller" },
   { "value": "autobiography", "label": "Autobiography" },
-  { "value": "literary-fiction", "label": "Literary fiction" },
-  { "value": "biography", "label": "Biography" },
   { "value": "fiction", "label": "Fiction" },
   { "value": "magical-realism", "label": "Magical Realism" },
-  { "value": "short-story", "label": "Short story" }
+  { "value": "short-story", "label": "Short story" },
+   { "value":"islamic", "label": "islamic" }
 ]

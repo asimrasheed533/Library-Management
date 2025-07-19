@@ -12,10 +12,17 @@ export default function About() {
       />
       <AboutCard
         image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxtsaxq2duEAoZCnHeD48mmvaaJrj1HJy-g&s"
-        heading="Streamlined Borrowing and Returns"
+        heading="Streamlined  Returns"
         content1="Borrowing and returning books has never been simpler. Our system is designed to minimize wait times and ensure a hassle-free process for all users."
         content2="In case of any issues or concerns, our support team is ready to assist you. We aim to provide a smooth and efficient experience for all library members."
         reverse
+      />
+      <AboutCard
+        image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxtsaxq2duEAoZCnHeD48mmvaaJrj1HJy-g&s"
+        heading="Streamlined  Returns"
+        content1="Borrowing and returning books has never been simpler. Our system is designed to minimize wait times and ensure a hassle-free process for all users."
+        content2="In case of any issues or concerns, our support team is ready to assist you. We aim to provide a smooth and efficient experience for all library members."
+        
       />
     </>
   );
