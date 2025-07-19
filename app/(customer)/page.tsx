@@ -16,6 +16,25 @@ export default function Home() {
     }
   }, [data]);
 
+  // Real-time search as user types
+  useEffect(() => {
+    if (!data) return;
+
+    if (searchQuery.trim() === "") {
+      setFilteredBooks(data);
+      return;
+    }
+
+    const filtered = data.filter(
+      (book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.category?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.description?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredBooks(filtered);
+  }, [searchQuery, data]);
+
   const handleSearch = () => {
     if (!data) return;
 
@@ -27,9 +46,17 @@ export default function Home() {
     const filtered = data.filter(
       (book) =>
         book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchQuery.toLowerCase())
+        book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.category?.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredBooks(filtered);
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    if (data) {
+      setFilteredBooks(data);
+    }
   };
 
   return (
@@ -55,6 +82,11 @@ export default function Home() {
               <button className="search__button" onClick={handleSearch}>
                 <span className="icon">🔍</span> Search
               </button>
+              {searchQuery.trim() !== "" && (
+                <button className="clear__button" onClick={handleClearSearch}>
+                  <span className="icon">✕</span> Clear
+                </button>
+              )}
             </div>
             {/* <div className="categories">
               <span>Popular categories:</span>
@@ -75,8 +107,8 @@ export default function Home() {
       <div className="book__card__warper">
         {isLoading ? (
           <div className="loading">Loading books...</div>
-        ) : data?.length ? (
-          data.map((book) => (
+        ) : filteredBooks?.length ? (
+          filteredBooks.map((book) => (
             <BookCard
               id={book.id}
               key={book.id}
@@ -86,7 +118,11 @@ export default function Home() {
             />
           ))
         ) : (
-          <div className="no-books">No books available</div>
+          <div className="no-books">
+            {searchQuery.trim() !== ""
+              ? `No books found matching "${searchQuery}"`
+              : "No books available"}
+          </div>
         )}
       </div>
       {/* what will you learn */}
