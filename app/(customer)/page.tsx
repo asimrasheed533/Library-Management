@@ -5,6 +5,8 @@ import "@/style/home.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import bookbanner from "@/public/bookbanner.jpg";
+import bookbanner1 from "@/public/bookbanner1.jpg";
 export default function Home() {
   const { data, isLoading } = useQuery<Book[]>("/api/books");
   const [searchQuery, setSearchQuery] = useState("");
@@ -62,6 +64,10 @@ export default function Home() {
   return (
     <>
       <div className="home__page__container">
+        <div className="home__page__container__img">
+          <Image src={bookbanner1} alt="book" />
+        </div>
+
         <div className="home__page__text__warper">
           <div className="home__page__text__title">
             Discover, Download, and Read Thousands of eBooks
@@ -88,16 +94,6 @@ export default function Home() {
                 </button>
               )}
             </div>
-            {/* <div className="categories">
-              <span>Popular categories:</span>
-              <div className="category__tags">
-                <span className="tag">Adventure</span>
-                <span className="tag">Classic</span>
-                <span className="tag">Detective</span>
-                <span className="tag">Fiction</span>
-                <span className="tag">Gothic</span>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
