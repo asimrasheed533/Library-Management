@@ -1,12 +1,36 @@
 "use client";
+import { Book } from "@/constant/types";
 import useQuery from "@/hooks/useQuery";
 import "@/style/home.scss";
-import { Book } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 export default function Home() {
   const { data, isLoading } = useQuery<Book[]>("/api/books");
-  console.log("data", data);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setFilteredBooks(data);
+    }
+  }, [data]);
+
+  const handleSearch = () => {
+    if (!data) return;
+
+    if (searchQuery.trim() === "") {
+      setFilteredBooks(data);
+      return;
+    }
+
+    const filtered = data.filter(
+      (book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredBooks(filtered);
+  };
 
   return (
     <>
@@ -24,8 +48,11 @@ export default function Home() {
               <input
                 type="text"
                 placeholder="Search for books, authors, or topics..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               />
-              <button className="search__button">
+              <button className="search__button" onClick={handleSearch}>
                 <span className="icon">🔍</span> Search
               </button>
             </div>
@@ -65,19 +92,15 @@ export default function Home() {
       {/* what will you learn */}
       <div className="learn__container">
         <div className="learn__container__text__warper">
-          <div className="learn__container__text__heading">
-            Book Overview
-          </div>
+          <div className="learn__container__text__heading">Book Overview</div>
           <div className="learn__container__text__subheading">
-           "An inspiring story that explores deep human emotions and relationships, making it a timeless read for all ages."
-
-"A comprehensive guide filled with practical insights, perfect for students and professionals alike."
-
-"A gripping novel that combines mystery, drama, and unexpected twists to keep readers engaged until the last page."
-
-"An essential reference book that covers the fundamentals of the subject with clear explanations and examples."
-  
-
+            "An inspiring story that explores deep human emotions and
+            relationships, making it a timeless read for all ages." "A
+            comprehensive guide filled with practical insights, perfect for
+            students and professionals alike." "A gripping novel that combines
+            mystery, drama, and unexpected twists to keep readers engaged until
+            the last page." "An essential reference book that covers the
+            fundamentals of the subject with clear explanations and examples."
           </div>
         </div>
         <div className="learn__points__warper">
@@ -88,15 +111,9 @@ export default function Home() {
                 Foundations of the Product Manager Role
               </div>
               <div className="learn__points__entry__text__subtitle">
-                  Understand what a product manager does, how they contribute to a team,
-                   and the skills required to succeed in the role.
-        
+                Understand what a product manager does, how they contribute to a
+                team, and the skills required to succeed in the role.
               </div>
-
-            
-
-
-                 
             </div>
           </div>
           <div className="learn__points__entry">
@@ -106,10 +123,8 @@ export default function Home() {
                 User-Centered Thinking and Research
               </div>
               <div className="learn__points__entry__text__subtitle">
-                Gain insights into how to conduct user research, gather feedback, 
-                and design products that solve real customer problems.
-                
-                
+                Gain insights into how to conduct user research, gather
+                feedback, and design products that solve real customer problems.
               </div>
             </div>
           </div>
@@ -120,10 +135,9 @@ export default function Home() {
                 Navigating Career Growth in Product Management
               </div>
               <div className="learn__points__entry__text__subtitle">
-                Explore real-world career paths, common challenges, and strategies 
-                for growing from entry-level PM roles to leadership positions.
-                
-                
+                Explore real-world career paths, common challenges, and
+                strategies for growing from entry-level PM roles to leadership
+                positions.
               </div>
             </div>
           </div>
@@ -134,10 +148,8 @@ export default function Home() {
                 How to Build and Deliver Great Products
               </div>
               <div className="learn__points__entry__text__subtitle">
-                Learn how to define product vision, prioritize features, 
-                work with cross-functional teams, and manage product lifecycles
-      
-                
+                Learn how to define product vision, prioritize features, work
+                with cross-functional teams, and manage product lifecycles
               </div>
             </div>
           </div>
@@ -155,8 +167,10 @@ export default function Home() {
         </div>
         <div className="breakdown__detail__warper">
           <div className="breakdown__detail__text">
-           A practical and insightful guide that traces the real-world path into product management, covering key skills, challenges, 
-           and strategies needed to succeed in the role. Ideal for aspiring product managers and professionals looking to transition into the field.
+            A practical and insightful guide that traces the real-world path
+            into product management, covering key skills, challenges, and
+            strategies needed to succeed in the role. Ideal for aspiring product
+            managers and professionals looking to transition into the field.
           </div>
           <div className="breakdown__detail__image">
             <img
