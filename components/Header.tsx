@@ -67,6 +67,14 @@ export default function Header({ token }: { token: string | null }) {
               >
                 Contact
               </Link>
+              <Link
+                href="/category"
+                className={`nav__entry__item ${
+                  pathname === "/category" ? "active" : ""
+                }`}
+              >
+                category
+              </Link>
               <div className="menu__close__warper">
                 <div className="menu__close__title">Library</div>
                 <div

@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import bookbanner from "@/public/bookbanner.jpg";
-import bookbanner1 from "@/public/bookbanner1.jpg";
 export default function Home() {
   const { data, isLoading } = useQuery<Book[]>("/api/books");
   const [searchQuery, setSearchQuery] = useState("");
@@ -65,7 +64,7 @@ export default function Home() {
     <>
       <div className="home__page__container">
         <div className="home__page__container__img">
-          <Image src={bookbanner1} alt="book" />
+          <Image src={bookbanner} alt="book" />
         </div>
 
         <div className="home__page__text__warper">
