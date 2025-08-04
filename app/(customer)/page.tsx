@@ -107,6 +107,7 @@ export default function Home() {
             <BookCard
               id={book.id}
               key={book.id}
+              price={book.price}
               title={book.title}
               author={book.author}
               image={book.imagePath}
@@ -219,11 +220,13 @@ function BookCard({
   title,
   author,
   image,
+  price,
   id,
 }: {
   id: string;
   title: string;
   author: string;
+  price: string;
   image: string;
 }) {
   return (
@@ -236,6 +239,7 @@ function BookCard({
         height={300}
       />
       <div className="book__card__name">{title}</div>
+      <div className="book__card__name">{price}</div>
       <div className="book__card__author">
         <span>Author Name:</span>
         {author}
