@@ -18,6 +18,7 @@ export default function BookAdd() {
   const [bookName, setBookName] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [description, setDescription] = useState("");
+  const [isPrice, setIsPrice] = useState("");
   const [image, setImage] = useState(null);
   const [pdf, setPdf] = useState(null);
   const [category, setCategory] = useState({
@@ -44,6 +45,7 @@ export default function BookAdd() {
       formData.append("pdf", pdf);
     }
     formData.append("image", image);
+    formData.append("price", isPrice);
     formData.append("author", authorName);
     formData.append("title", bookName);
     formData.append("name", bookName);
@@ -74,6 +76,7 @@ export default function BookAdd() {
       setDescription("");
       setPdf(null);
       setImage(null);
+      setIsPrice("");
       setCategory({ value: "", label: "Select Category" });
       setLoading(false);
     }
@@ -116,6 +119,13 @@ export default function BookAdd() {
               name="author"
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
+            />
+            <Input
+              label="Price"
+              type="number"
+              name="price"
+              value={isPrice}
+              onChange={(e) => setIsPrice(e.target.value)}
             />
           </div>
           <div

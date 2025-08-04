@@ -28,6 +28,7 @@ export default function EditBook() {
   const [description, setDescription] = useState(data ? data.description : "");
   const [image, setImage] = useState(data ? data.imagePath : null);
   const [pdf, setPdf] = useState(data ? data.pdfPath : null);
+  const [isPrice, setIsPrice] = useState("");
   const [category, setCategory] = useState({
     value: data ? data.category : "",
     label: data ? data.category : "Select Category",
@@ -53,6 +54,7 @@ export default function EditBook() {
     }
     formData.append("id", id || "");
     formData.append("image", image);
+    formData.append("price", isPrice);
     formData.append("author", authorName);
     formData.append("title", bookName);
     formData.append("name", bookName);
@@ -86,6 +88,7 @@ export default function EditBook() {
       setBookName("");
       setAuthorName("");
       setDescription("");
+      setIsPrice("");
       setPdf(null);
       setImage(null);
       setCategory({ value: "", label: "Select Category" });
@@ -154,6 +157,13 @@ export default function EditBook() {
                 name="author"
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
+              />
+              <Input
+                label="Price"
+                type="number"
+                name="price"
+                value={isPrice}
+                onChange={(e) => setIsPrice(e.target.value)}
               />
             </div>
             <div

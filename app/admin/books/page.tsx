@@ -22,11 +22,13 @@ const headerItems = [
   { key: "pdf", name: "PDF" },
   { key: "author", name: "Author Name" },
   { key: "createdAt", name: "Created At" },
+  { key: "price", name: "Price" },
   { key: "action", name: "Action" },
 ];
 
 export default function Books() {
   const { data, isLoading } = useQuery<Book[]>("/api/books");
+  console.log("data", data);
 
   const pathname = usePathname();
   return (
@@ -140,6 +142,9 @@ function BookEntry({ item }: { item: Book }) {
       </div>
       <div className="listing__page__table__content__row__entry">
         {dayjs(item.createdAt).format("DD/MM/YYYY hh:mm A")}
+      </div>
+      <div className="listing__page__table__content__row__entry">
+        $ {item.price || "N/A"}
       </div>
       <div className="listing__page__table__content__row__entry">
         <button

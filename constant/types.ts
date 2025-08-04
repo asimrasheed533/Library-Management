@@ -8,4 +8,5 @@ export interface Book {
   name: string;
   pdfPath: string;
   title: string;
+  price: string;
 }

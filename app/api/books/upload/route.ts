@@ -11,15 +11,14 @@ export async function POST(req: Request) {
     const title = formData.get("title") as string;
     const name = formData.get("name") as string;
     const author = formData.get("author") as string;
+    const price = formData.get("price") as string;
     const description = formData.get("description") as string;
     const category = formData.get("category") as string;
 
     if (!pdf || !pdf.name || !image || !image.name) {
       return NextResponse.json({ error: "File is required" }, { status: 400 });
     }
-
     const uploadDir = path.join(process.cwd(), "public", "uploads");
-
     const pdfFilename = await uploadFile(pdf, uploadDir);
     const imageFilename = await uploadFile(image, uploadDir);
 
@@ -29,12 +28,12 @@ export async function POST(req: Request) {
         name,
         author,
         description,
+        price,
         category,
         pdfPath: `/uploads/${pdfFilename}`,
         imagePath: `/uploads/${imageFilename}`,
       },
     });
-
     return NextResponse.json(
       { message: "File uploaded successfully", book },
       { status: 200 }

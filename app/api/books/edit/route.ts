@@ -10,6 +10,7 @@ export async function PUT(req: Request) {
   const title = formData.get("title") as string;
   const name = formData.get("name") as string;
   const author = formData.get("author") as string;
+  const price = formData.get("price") as string;
   const description = formData.get("description") as string;
   const category = formData.get("category") as string;
 
@@ -45,6 +46,7 @@ export async function PUT(req: Request) {
         title,
         name,
         author,
+        price,
         pdfPath: pdfFilename,
         imagePath: imageFilename,
       },
