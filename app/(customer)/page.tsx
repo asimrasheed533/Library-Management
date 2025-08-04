@@ -239,7 +239,7 @@ function BookCard({
         height={300}
       />
       <div className="book__card__name">{title}</div>
-      <div className="book__card__name">{price}</div>
+      <div className="book__card__name">${price}</div>
       <div className="book__card__author">
         <span>Author Name:</span>
         {author}
