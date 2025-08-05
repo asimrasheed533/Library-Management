@@ -33,4 +33,5 @@ model Book {
   category    String
   createdAt   DateTime @default(now())
   price       String?
+  ispn        String?
 }

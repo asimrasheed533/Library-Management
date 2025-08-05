@@ -9,4 +9,5 @@ export interface Book {
   pdfPath: string;
   title: string;
   price: string;
+  ispn: string;
 }

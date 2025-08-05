@@ -12,6 +12,7 @@ export async function POST(req: Request) {
     const name = formData.get("name") as string;
     const author = formData.get("author") as string;
     const price = formData.get("price") as string;
+    const ispn = formData.get("ispn") as string;
     const description = formData.get("description") as string;
     const category = formData.get("category") as string;
 
@@ -29,6 +30,7 @@ export async function POST(req: Request) {
         author,
         description,
         price,
+        ispn,
         category,
         pdfPath: `/uploads/${pdfFilename}`,
         imagePath: `/uploads/${imageFilename}`,

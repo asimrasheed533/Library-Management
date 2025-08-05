@@ -23,6 +23,7 @@ const headerItems = [
   { key: "author", name: "Author Name" },
   { key: "createdAt", name: "Created At" },
   { key: "price", name: "Price" },
+  { key: "ispn", name: "Ispn" },
   { key: "action", name: "Action" },
 ];
 
@@ -145,6 +146,9 @@ function BookEntry({ item }: { item: Book }) {
       </div>
       <div className="listing__page__table__content__row__entry">
         $ {item.price || "N/A"}
+      </div>
+      <div className="listing__page__table__content__row__entry">
+        {item.ispn || "N/A"}
       </div>
       <div className="listing__page__table__content__row__entry">
         <button

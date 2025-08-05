@@ -19,6 +19,7 @@ export default function BookAdd() {
   const [authorName, setAuthorName] = useState("");
   const [description, setDescription] = useState("");
   const [isPrice, setIsPrice] = useState("");
+  const [isIspn, setIsIspn] = useState("");
   const [image, setImage] = useState(null);
   const [pdf, setPdf] = useState(null);
   const [category, setCategory] = useState({
@@ -126,6 +127,13 @@ export default function BookAdd() {
               name="price"
               value={isPrice}
               onChange={(e) => setIsPrice(e.target.value)}
+            />
+            <Input
+              label="ISPN"
+              type="number"
+              name="ispn"
+              value={isIspn}
+              onChange={(e) => setIsIspn(e.target.value)}
             />
           </div>
           <div
