@@ -47,6 +47,7 @@ export default function BookAdd() {
     }
     formData.append("image", image);
     formData.append("price", isPrice);
+    formData.append("ispn", isIspn);
     formData.append("author", authorName);
     formData.append("title", bookName);
     formData.append("name", bookName);
@@ -78,6 +79,7 @@ export default function BookAdd() {
       setPdf(null);
       setImage(null);
       setIsPrice("");
+      setIsIspn("");
       setCategory({ value: "", label: "Select Category" });
       setLoading(false);
     }
